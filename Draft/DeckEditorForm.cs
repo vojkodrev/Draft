@@ -33,60 +33,42 @@ namespace Draft
             title = Text;
         }
 
-        private void ChangeText(string text)
+        public void AddCard(Card pickPicture)
         {
-            Text = String.Format("{0} - {1}", title, text);
+            PictureBox pictureBox = DraftListForm.CreatePictureBox(pickPicture);
+            AddPictureBoxEvents(pictureBox);
+
+
+            cardsPanel.Controls.Add(pictureBox);
+
+            pictureBox.BringToFront();
+        }
+        public void MassAdd(string name, int count)
+        {
+            Bitmap pic = DownloadPicture(name);
+            for (int i = 0; i < count; i++)
+                AddCard(new Card { Picture = pic, Name = name });
         }
 
-        void draftSite_PickedCardReceived(object sender, CardEventArgs e)
-        {
-            Invoke(new Action(() =>
-            {
-                AddCard(e.Card);
-            }));
-        }
-
-        void draftSite_GetPickedCardsStarted(object sender, EventArgs e)
-        {
-            Invoke(new Action(() =>
-            {
-                refreshPicksToolStripMenuItem.Enabled = false;
-                ChangeText("Fetching picked cards");
-            }));
-        }
-
-        void draftSite_GetPickedCardsFinished(object sender, EventArgs e)
-        {
-            Invoke(new Action(() =>
-            {
-                refreshPicksToolStripMenuItem.Enabled = true;
-                ChangeText("Finished fetching picked cards");
-            }));
-        }
-
-        void draftSite_GetPickedCardsError(object sender, ErrorEventArgs e)
-        {
-            Invoke(new Action(() =>
-            {
-                MessageBox.Show(e.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }));
-        }
-
-        private void WireEvents(PictureBox pictureBox)
+        private void AddPictureBoxEvents(PictureBox pictureBox)
         {
             pictureBox.Click += pictureBox_Click;
             pictureBox.MouseDown += pictureBox_MouseDown;
             pictureBox.MouseMove += pictureBox_MouseMove;
             pictureBox.MouseUp += pictureBox_MouseUp;
         }
-
-        public void AddCard(Card pickPicture)
+        private static Bitmap DownloadPicture(string cardName)
         {
-            PictureBox pictureBox = DraftListForm.CreatePictureBox(pickPicture);
-            WireEvents(pictureBox);
+            //Bitmap picture = HttpHelper.DownloadPicture(String.Format("http://www.wizards.com/global/images/magic/general/{0}.jpg", cardName.Replace(" ", "_")));
+            //return picture;
 
-            cardsPanel.Controls.Add(pictureBox);
+            return PictureCache.GetPicture(cardName, String.Format("http://www.wizards.com/global/images/magic/general/{0}.jpg", cardName.Replace(" ", "_")));
         }
+        private void ChangeText(string text)
+        {
+            Text = String.Format("{0} - {1}", title, text);
+        }
+        
         private void pictureBox_MouseUp(object sender, MouseEventArgs e)
         {
             SetStatistics();
@@ -122,14 +104,7 @@ namespace Draft
         private void DeckEditorForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
-        }
-        private static Bitmap DownloadPicture(string cardName)
-        {
-            //Bitmap picture = HttpHelper.DownloadPicture(String.Format("http://www.wizards.com/global/images/magic/general/{0}.jpg", cardName.Replace(" ", "_")));
-            //return picture;
-
-            return PictureCache.GetPicture(cardName, String.Format("http://www.wizards.com/global/images/magic/general/{0}.jpg", cardName.Replace(" ", "_")));
-        }
+        }        
         private void refreshPicksToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -143,12 +118,36 @@ namespace Draft
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        public void MassAdd(string name, int count)
+        private void draftSite_PickedCardReceived(object sender, CardEventArgs e)
         {
-            Bitmap pic = DownloadPicture(name);
-            for (int i = 0; i < count; i++)
-                AddCard(new Card { Picture = pic, Name = name });
+            Invoke(new Action(() =>
+            {
+                AddCard(e.Card);
+            }));
         }
+        private void draftSite_GetPickedCardsStarted(object sender, EventArgs e)
+        {
+            Invoke(new Action(() =>
+            {
+                refreshPicksToolStripMenuItem.Enabled = false;
+                ChangeText("Fetching picked cards");
+            }));
+        }
+        private void draftSite_GetPickedCardsFinished(object sender, EventArgs e)
+        {
+            Invoke(new Action(() =>
+            {
+                refreshPicksToolStripMenuItem.Enabled = true;
+                ChangeText("Finished fetching picked cards");
+            }));
+        }
+        private void draftSite_GetPickedCardsError(object sender, ErrorEventArgs e)
+        {
+            Invoke(new Action(() =>
+            {
+                MessageBox.Show(e.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }));
+        }        
         private void forestToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MassAdd("Forest", 5);
@@ -169,7 +168,6 @@ namespace Draft
         {
             MassAdd("Island", 5);
         }
-
         private void saveDeckToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Control.ControlCollection controls = cardsPanel.Controls;
