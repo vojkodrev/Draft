@@ -1,5 +1,7 @@
-Tappedout and CCGDecks gui client with deck editor.
+<p>Tappedout and CCGDecks gui client with deck editor.</p>
 
-Build requirements:
- - Visual Studio 2010
- - .NET 4.0
+<p>
+Build requirements:<br />
+ - Visual Studio 2010<br />
+ - .NET 4.0<br />
+</p>
