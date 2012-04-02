@@ -1,0 +1,6 @@
+cache/
+obj/
+*.suo
+*.vshost.exe*
+*.pdb
+*.csproj.user

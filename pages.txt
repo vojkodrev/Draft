@@ -1,0 +1,22 @@
+create draft -> http://ccgdecks.com/draft_gen.php
+drafting -> http://ccgdecks.com/drafting.php?id=1328630&playsound=on
+view card -> http://ccgdecks.com/card_view.php?id=12020
+
+private void pictureBox_MouseDown(object sender, MouseEventArgs e)
+{
+    coordinates = new Point(-e.X, -e.Y);
+    Controls.SetChildIndex((Control)sender, 0);
+}
+private void pictureBox_MouseMove(object sender, MouseEventArgs e)
+{
+    if (e.Button == MouseButtons.Left)
+    {
+        Point pointToClient = PointToClient(MousePosition);
+        pointToClient.Offset(coordinates);
+        ((Control)sender).Location = pointToClient;
+    }
+}
+private void pictureBox_Click(object sender, EventArgs e)
+{
+    Controls.SetChildIndex((Control)sender, 0);
+}
