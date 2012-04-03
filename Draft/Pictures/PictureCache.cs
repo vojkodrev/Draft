@@ -27,6 +27,26 @@ namespace Draft.Pictures
 
             return downloadedPicture;
         }
+        public static Bitmap GetPictureDirectlyFromCache(string name)
+        {
+            if (!Directory.Exists(CACHE_DIR))
+                Directory.CreateDirectory(CACHE_DIR);
+
+            name = name + ".jpg";
+            string fullPath = Path.Combine(CACHE_DIR, name);
+
+            return new Bitmap(fullPath);
+        }
+        public static bool ContainsPicture(string name)
+        {
+            if (!Directory.Exists(CACHE_DIR))
+                Directory.CreateDirectory(CACHE_DIR);
+
+            name = name + ".jpg";
+            string fullPath = Path.Combine(CACHE_DIR, name);
+
+            return File.Exists(fullPath);
+        }
 
     }
 }

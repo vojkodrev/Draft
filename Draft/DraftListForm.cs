@@ -5,35 +5,19 @@ using Draft.DraftSites;
 using System.Linq;
 using Draft.DraftSites.TappedOut;
 using System.Threading;
+using Draft.DraftSites.CCGDecks;
 
 namespace Draft
 {
     public partial class DraftListForm : Form
     {
-        private readonly DeckEditorForm deckEditorForm;
-        private readonly IDraftSite draftSite;
-        private readonly string title;
+        private DeckEditorForm deckEditorForm;
+        private IDraftSite draftSite;
+        private string title;
 
         public DraftListForm()
         {
             InitializeComponent();
-
-            Application.ThreadException += Application_ThreadException;
-
-            //draftSite = new CCGDecksDraftSite();
-            draftSite = new TappedOutDraftSite();
-            draftSite.CurrentPickReceived += draftSite_CurrentPickReceived;
-            draftSite.GetCurrentPicksError += draftSite_GetCurrentPicksError;
-            draftSite.GetCurrentPicksFinished += draftSite_GetCurrentPicksFinished;
-            draftSite.GetCurrentPicksStarted += draftSite_GetCurrentPicksStarted;
-            draftSite.TimeLeftReceived += draftSite_TimeLeftReceived;
-
-            deckEditorForm = new DeckEditorForm(draftSite);
-            deckEditorForm.Show();
-
-            title = Text;
-
-
         }
 
         public static PictureBox CreatePictureBox(Card pickPicture)
@@ -83,6 +67,33 @@ namespace Draft
         }
         private void DraftListForm_Load(object sender, EventArgs e)
         {
+            Application.ThreadException += Application_ThreadException;
+
+            SiteSelectorForm siteSelectorForm = new SiteSelectorForm();
+            if (siteSelectorForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                switch (siteSelectorForm.DraftSite)
+                {
+                    case SiteSelectorForm.SelectedSite.CCGDecks:
+                        draftSite = new CCGDecksDraftSite();
+                        break;
+                    case SiteSelectorForm.SelectedSite.Tappedout:
+                        draftSite = new TappedOutDraftSite();
+                        break;
+                    default:
+                        throw new NotSupportedException("Draft List - Unsupported draft site");
+                }
+
+            draftSite.CurrentPickReceived += draftSite_CurrentPickReceived;
+            draftSite.GetCurrentPicksError += draftSite_GetCurrentPicksError;
+            draftSite.GetCurrentPicksFinished += draftSite_GetCurrentPicksFinished;
+            draftSite.GetCurrentPicksStarted += draftSite_GetCurrentPicksStarted;
+            draftSite.TimeLeftReceived += draftSite_TimeLeftReceived;
+
+            deckEditorForm = new DeckEditorForm(draftSite);
+            deckEditorForm.Show();
+
+            title = Text;
+
             Show();
             loginToolStripMenuItem_Click(sender, e);
         }
@@ -168,7 +179,7 @@ namespace Draft
             }
             catch (Exception)
             {
-                
+
             }
         }
     }

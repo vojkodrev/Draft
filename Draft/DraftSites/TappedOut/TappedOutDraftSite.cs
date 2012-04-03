@@ -128,7 +128,7 @@ namespace Draft.DraftSites.TappedOut
                 Match[] ma = new Match[matches.Count];
                 matches.CopyTo(ma, 0);
 
-                Parallel.ForEach<Match>(ma, match =>
+                Parallel.ForEach<Match>(ma, new ParallelOptions { MaxDegreeOfParallelism = 20 }, match =>
                 {
                     //System.Drawing.Bitmap dwnPic = Http.HttpHelper.DownloadPicture(match.Groups[2].Value);
                     string name = match.Groups[3].Value;
@@ -161,7 +161,7 @@ namespace Draft.DraftSites.TappedOut
                 MatchCollection matches = Regex.RegexHelper.Match(pattern, draftPage);
                 Match[] ma = new Match[matches.Count];
                 matches.CopyTo(ma, 0);
-                Parallel.ForEach(ma, matche =>
+                Parallel.ForEach(ma, new ParallelOptions { MaxDegreeOfParallelism = 20 }, matche =>
                 {
                     string name = matche.Groups[1].Value;
                     Bitmap pic = PictureCache.GetPicture(name, matche.Groups[2].Value);

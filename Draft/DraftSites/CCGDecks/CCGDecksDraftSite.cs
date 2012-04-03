@@ -4,17 +4,84 @@ using System.Linq;
 using Draft.Http;
 using System.Net;
 using System.Text.RegularExpressions;
-using Drafting.Xml;
+using System.Threading.Tasks;
+using System.Drawing;
+using Draft.Pictures;
 
 namespace Draft.DraftSites.CCGDecks
 {
     public class CCGDecksDraftSite : IDraftSite
     {
-        private readonly CookieContainer cookies;
+        private readonly CookieContainer cookies;        
 
         public CCGDecksDraftSite()
         {
-            cookies = new CookieContainer();
+            cookies = new CookieContainer();            
+        }
+
+        public event EventHandler<CardEventArgs> CurrentPickReceived;
+        public event EventHandler GetCurrentPicksStarted;
+        public event EventHandler GetCurrentPicksFinished;
+        public event EventHandler<ErrorEventArgs> GetCurrentPicksError;
+        public event EventHandler<TimeLeftEventArgs> TimeLeftReceived;
+        public event EventHandler<CardEventArgs> PickedCardReceived;
+        public event EventHandler GetPickedCardsStarted;
+        public event EventHandler GetPickedCardsFinished;
+        public event EventHandler<ErrorEventArgs> GetPickedCardsError;
+
+        public virtual void OnGetPickedCardsError(object sender, ErrorEventArgs e)
+        {
+            EventHandler<ErrorEventArgs> handler = GetPickedCardsError;
+            if (handler != null)
+                handler(sender, e);
+        }
+        public virtual void OnGetPickedCardsFinished(object sender, EventArgs e)
+        {
+            EventHandler handler = GetPickedCardsFinished;
+            if (handler != null)
+                handler(sender, e);
+        }
+        public virtual void OnGetPickedCardsStarted(object sender, EventArgs e)
+        {
+            EventHandler handler = GetPickedCardsStarted;
+            if (handler != null)
+                handler(sender, e);
+        }
+        public virtual void OnPickedCardReceived(object sender, CardEventArgs e)
+        {
+            EventHandler<CardEventArgs> handler = PickedCardReceived;
+            if (handler != null)
+                handler(sender, e);
+        }
+        public virtual void OnTimeLeftReceived(object sender, TimeLeftEventArgs e)
+        {
+            EventHandler<TimeLeftEventArgs> handler = TimeLeftReceived;
+            if (handler != null)
+                handler(sender, e);
+        }
+        public virtual void OnGetCurrentPicksError(object sender, ErrorEventArgs e)
+        {
+            EventHandler<ErrorEventArgs> handler = GetCurrentPicksError;
+            if (handler != null)
+                handler(sender, e);
+        }
+        public virtual void OnGetCurrentPicksFinished(object sender, EventArgs e)
+        {
+            EventHandler handler = GetCurrentPicksFinished;
+            if (handler != null)
+                handler(sender, e);
+        }
+        public virtual void OnGetCurrentPicksStarted(object sender, EventArgs e)
+        {
+            EventHandler handler = GetCurrentPicksStarted;
+            if (handler != null)
+                handler(sender, e);
+        }
+        public virtual void OnCurrentPickReceived(object sender, CardEventArgs e)
+        {
+            EventHandler<CardEventArgs> handler = CurrentPickReceived;
+            if (handler != null)
+                handler(sender, e);
         }
 
         public void Login(string username, string password)
@@ -25,78 +92,121 @@ namespace Draft.DraftSites.CCGDecks
                 { "login", "Log in" },
             }, cookies);
 
-            CheckIfLoginSuccessful(loginPage);
-        }
-        public List<PickPicture> GetPickPictures()
-        {
-            string draftPage = HttpHelper.Get("http://ccgdecks.com/draft_gen.php", cookies);
-            CheckIfInADraft(draftPage);
-
-            List<PictureUrlIdAndName> extractedPickPicsUrls = ExtractPickPictureUrls(draftPage);
-
-            return DownloadPictures(extractedPickPicsUrls);
+            if (!loginPage.Contains("Logout</a></li>"))
+                throw new Exception("Login failed!");
         }
         public void PickCard(string id)
         {
-            string response = HttpHelper.Post("http://ccgdecks.com/drafting.php", new Dictionary<string, string> { { "card_picked", id }, { "viewtype", "picture" } }, cookies);            
-        }
-        public List<string> GetPicks()
-        {
-            string picksPage = HttpHelper.Get("http://ccgdecks.com/drafting.php", cookies);
-
-            CheckIfInADraft(picksPage);
-
-            return ExtractPicks(picksPage);
-        }
-
-        private static List<string> ExtractPicks(string picksPage)
-        {
-            // 2 x <a href="javascript: viewCard('4428');" title="Ray of Revelation">Ray of Revelation</a> (1<img src="images/sm_white.gif">)<br>
-            string pattern = "(\\d*) x <a href=.*?title=.*?>(.*?)</a>.*?<img.*?>.*?<br>";
-            MatchCollection matches = Regex.RegexHelper.Match(pattern, picksPage.Replace("\n", " ").Replace("\r", " "));
-            List<string> result = new List<string>();
-            foreach (Match match in matches)
-            {
-                int numberOfPicks = Convert.ToInt32(match.Groups[1].Value);
-
-                for (int i = 0; i < numberOfPicks; i++)
-                    result.Add(match.Groups[2].Value);
-            }
-
-            return result;
-        }
-        private static void CheckIfLoginSuccessful(string loginPage)
-        {
-            if (!loginPage.Contains("Logout</a></li>"))
-                throw new LoginFailedException("Login failed!");
-        }
-        private static List<PickPicture> DownloadPictures(List<PictureUrlIdAndName> extractedPickPicsUrls)
-        {
-            List<PickPicture> result = new List<PickPicture>();
-
-            foreach (PictureUrlIdAndName extractedPickPicsUrl in extractedPickPicsUrls)
-            {
-                System.Drawing.Bitmap pic = HttpHelper.DownloadPicture(extractedPickPicsUrl.Url);
-                result.Add(new PickPicture { Id = extractedPickPicsUrl.Id, Picture = pic, Name = extractedPickPicsUrl.Name });
-            }
-
-            return result;
+            string response = HttpHelper.Post("http://ccgdecks.com/drafting.php", new Dictionary<string, string> { { "card_picked", id }, { "viewtype", "picture" } }, cookies);
         }
         private static void CheckIfInADraft(string draftPage)
         {
             if (!draftPage.Contains("View Draft Table") || !draftPage.Contains("Current picks:"))
-                throw new NotInADraftException("You are not in a draft!");
+                throw new Exception("You are not in a draft!");
         }
-        private static List<PictureUrlIdAndName> ExtractPickPictureUrls(string draftPage)
+        public void GetCurrentPicks()
         {
-            string pattern = "<a href=\"javascript: PickCard\\((.*?)\\);\".*?><img.*?src=\"(.*?)\".*?alt=\"(.*?)\"></a>";
+            OnGetCurrentPicksStarted(this, new EventArgs());
 
-            MatchCollection matches = Regex.RegexHelper.Match(pattern, draftPage.Replace("\n", " ").Replace("\r", " "));
-            List<PictureUrlIdAndName> result = new List<PictureUrlIdAndName>();
-            foreach (Match match in matches)
-                result.Add(new PictureUrlIdAndName { Url = match.Groups[2].Value, Id = match.Groups[1].Value, Name = match.Groups[3].Value });
+            try
+            {
+                string draftPage = HttpHelper.Get("http://ccgdecks.com/draft_gen.php", cookies);
 
-            return result;
+                CheckIfInADraft(draftPage);
+
+                try
+                {
+                    string timeLeftPattern = "<h3>Please select a card from below, you have <font color=\"red\">(\\d*)</font> seconds left to choose</h3>";
+                    MatchCollection match = Regex.RegexHelper.Match(timeLeftPattern, draftPage);
+                    int timeLeft = Convert.ToInt32(match[0].Groups[1].Value);
+                    OnTimeLeftReceived(this, new TimeLeftEventArgs { TimeLeft = timeLeft });
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Unable to get time left!");
+                }
+
+                string pattern = "<a href=\"javascript: PickCard\\((.*?)\\);\".*?><img.*?src=\"(.*?)\".*?alt=\"(.*?)\"></a>";
+
+                MatchCollection matches = Regex.RegexHelper.Match(pattern, draftPage.Replace("\n", " ").Replace("\r", " "));
+                Match[] ma = new Match[matches.Count];
+                matches.CopyTo(ma, 0);
+
+                Parallel.ForEach<Match>(ma, new ParallelOptions { MaxDegreeOfParallelism = 20 }, match =>
+                {
+                    string pictureUrl = match.Groups[2].Value;
+                    string id = match.Groups[1].Value;
+                    string name = match.Groups[3].Value;
+
+                    Bitmap picture = PictureCache.GetPicture(name, pictureUrl);
+
+                    OnCurrentPickReceived(this, new CardEventArgs { Card = new Card { Id = id, Name = name, Picture = picture } });
+                });
+            }
+            catch (Exception ex)
+            {
+                OnGetCurrentPicksError(this, new ErrorEventArgs { Error = ex.Message });
+            }
+            finally
+            {
+                OnGetCurrentPicksFinished(this, new EventArgs());
+            }
+        }
+        public void GetPickedCards()
+        {
+            OnGetPickedCardsStarted(this, new EventArgs());
+
+            try
+            {
+                string picksPage = HttpHelper.Get("http://ccgdecks.com/drafting.php", cookies);
+
+                CheckIfInADraft(picksPage);
+
+                // 2 x <a href="javascript: viewCard('4428');" title="Ray of Revelation">Ray of Revelation</a> (1<img src="images/sm_white.gif">)<br>
+                string pattern = "(\\d*) x <a href=\"javascript: viewCard\\('(\\d*)'.*?title=.*?>(.*?)</a>.*?<img.*?>.*?<br>";
+                MatchCollection matches = Regex.RegexHelper.Match(pattern, picksPage.Replace("\n", " ").Replace("\r", " "));
+                Match[] ma = new Match[matches.Count];
+                matches.CopyTo(ma, 0);
+
+                Parallel.ForEach<Match>(ma, new ParallelOptions { MaxDegreeOfParallelism = 20 }, match =>
+                {
+                    int numberOfPicks = Convert.ToInt32(match.Groups[1].Value);
+                    string id = match.Groups[2].Value;
+                    string name = match.Groups[3].Value;
+
+                    Bitmap picture;
+
+                    if (PictureCache.ContainsPicture(name))
+                        picture = PictureCache.GetPictureDirectlyFromCache(name);
+                    else
+                    {
+                        string cardViewPage = Http.HttpHelper.Get("http://ccgdecks.com/card_view.php?id=" + id, cookies);
+                        // <tr><td valign="top"><img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=262859&type=card"></td>
+                        string cardViewPagePattern = "<tr>.*?<td valign=\"top\">.*?<img src=\"(.*?)\">.*?</td>";
+                        MatchCollection cardUrlMatch = Regex.RegexHelper.Match(cardViewPagePattern, cardViewPage.Replace("\n", " ").Replace("\r", " ").Replace("\t", " "));
+                        picture = PictureCache.GetPicture(name, cardUrlMatch[0].Groups[1].Value);
+                    }
+
+                    for (int i = 0; i < numberOfPicks; i++)
+                        OnPickedCardReceived(this, new CardEventArgs { Card = new Card { Id = id, Name = name, Picture = picture } });
+                });
+            }
+            catch (Exception ex)
+            {
+                OnGetPickedCardsError(this, new ErrorEventArgs { Error = ex.Message });
+            }
+            finally
+            {
+                OnGetPickedCardsFinished(this, new EventArgs());
+            }
+        }
+        public void TerminateActionGetCurrentPicks()
+        {
+
+        }
+        public void TerminateActionGetPickedCards()
+        {
+
         }
     }
 }
