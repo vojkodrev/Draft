@@ -4,8 +4,11 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Draft.Pictures;
+using Helpers.Pictures;
 using System.Drawing;
+using Helpers.Http;
+using Helpers.Regex;
+using System.Web;
 
 namespace Draft.DraftSites.TappedOut
 {
@@ -24,7 +27,7 @@ namespace Draft.DraftSites.TappedOut
         public event EventHandler<ErrorEventArgs> GetPickedCardsError;
         public event EventHandler<TimeLeftEventArgs> TimeLeftReceived;
 
-        public virtual void OnTimeLeftReceived(object sender, TimeLeftEventArgs e)
+        protected virtual void OnTimeLeftReceived(object sender, TimeLeftEventArgs e)
         {
             EventHandler<TimeLeftEventArgs> handler = TimeLeftReceived;
             if (handler != null)
@@ -82,10 +85,10 @@ namespace Draft.DraftSites.TappedOut
         public void Login(string username, string password)
         {
             this.username = username;
-            string request = Http.HttpHelper.Get("http://tappedout.net/accounts/login", cookieContainer);
-            MatchCollection matches = Regex.RegexHelper.Match("<input type='hidden' name='csrfmiddlewaretoken' value='(.*?)' />", request);
+            string request = HttpHelper.Get("http://tappedout.net/accounts/login", cookieContainer);
+            MatchCollection matches = RegexHelper.Match("<input type='hidden' name='csrfmiddlewaretoken' value='(.*?)' />", request);
 
-            string loginResponse = Http.HttpHelper.Post("http://tappedout.net/accounts/login/", new Dictionary<string, string> 
+            string loginResponse = HttpHelper.Post("http://tappedout.net/accounts/login/", new Dictionary<string, string> 
             { 
                 { "csrfmiddlewaretoken", matches[0].Groups[1].Value } ,                
                 { "username", username }, 
@@ -97,7 +100,7 @@ namespace Draft.DraftSites.TappedOut
         }
         public void PickCard(string id)
         {
-            string newVariable = Http.HttpHelper.Get("http://tappedout.net" + id, cookieContainer);
+            string newVariable = HttpHelper.Get("http://tappedout.net" + id, cookieContainer);
         }
 
         public void GetCurrentPicks()
@@ -106,15 +109,14 @@ namespace Draft.DraftSites.TappedOut
 
             try
             {
-                string draftPage = Http.HttpHelper.Get("http://tappedout.net/mtg-draft-simulator/", cookieContainer);
+                string draftPage = HttpHelper.Get("http://tappedout.net/mtg-draft-simulator/", cookieContainer);
 
-                if (!draftPage.Contains("Players will auto-pick after holding pack"))
-                    throw new Exception("Not in a draft!");
+                CheckIfInADraft(draftPage);
 
                 try
                 {
                     string countDownPattern = String.Format("<span style=\"text-decoration:none;\"><a href='/users/.*?/'>{0}</a></span>.*?<td class=\"player-countdown\">(.*?)</td>", username);
-                    MatchCollection timeLeftMatches = Regex.RegexHelper.Match(countDownPattern, draftPage.Replace("\n", " ").Replace("\r", " ").Replace("\t", " "));
+                    MatchCollection timeLeftMatches = RegexHelper.Match(countDownPattern, draftPage.Replace("\n", " ").Replace("\r", " ").Replace("\t", " "));
                     int timeLeft = Convert.ToInt32(timeLeftMatches[0].Groups[1].Value);
                     OnTimeLeftReceived(this, new TimeLeftEventArgs { TimeLeft = timeLeft });
                 }
@@ -124,14 +126,14 @@ namespace Draft.DraftSites.TappedOut
                 }
 
                 string pattern = "<a target=\"_new\" class=\"card-hover pick\" href=\"(.*?)\">.*?<span class=\"image-box hide\"><img src=\"(.*?)\" alt=\"MTG Card: (.*?)\" /><br />";
-                MatchCollection matches = Regex.RegexHelper.Match(pattern, draftPage);
+                MatchCollection matches = RegexHelper.Match(pattern, draftPage);
                 Match[] ma = new Match[matches.Count];
                 matches.CopyTo(ma, 0);
 
                 Parallel.ForEach<Match>(ma, new ParallelOptions { MaxDegreeOfParallelism = 20 }, match =>
                 {
                     //System.Drawing.Bitmap dwnPic = Http.HttpHelper.DownloadPicture(match.Groups[2].Value);
-                    string name = match.Groups[3].Value;
+                    string name = HttpUtility.HtmlDecode(match.Groups[3].Value);
                     var dwnPic = PictureCache.GetPicture(name, match.Groups[2].Value);
                     Card card = new Card { Id = match.Groups[1].Value, Name = name, Picture = dwnPic };
                     OnCurrentPickReceived(this, new CardEventArgs { Card = card });
@@ -146,24 +148,28 @@ namespace Draft.DraftSites.TappedOut
                 OnGetCurrentPicksFinished(this, new EventArgs());
             }
         }
+        private static void CheckIfInADraft(string draftPage)
+        {
+            if (!draftPage.Contains("Players will auto-pick after holding pack"))
+                throw new Exception("Not in draft!");
+        }
         public void GetPickedCards()
         {
             OnGetPickedCardsStarted(this, new EventArgs());
 
             try
             {
-                string draftPage = Http.HttpHelper.Get("http://tappedout.net/mtg-draft-simulator/", cookieContainer);
+                string draftPage = HttpHelper.Get("http://tappedout.net/mtg-draft-simulator/", cookieContainer);
 
-                if (!draftPage.Contains("Players will auto-pick after holding pack"))
-                    throw new Exception("Not in draft!");
+                CheckIfInADraft(draftPage);
 
                 string pattern = "<input type=\"checkbox\" id=\"exclude-\\d*\" checked=\"checked\" class=\"exclude\" /> <span class=\".*?\"><a  class=\"card-hover\" href=\".*?\">(.*?)</a><span.*?<img class=\"screen\" src=\"(.*?)\" alt=\"MTG Card: .*?\" /></span>";
-                MatchCollection matches = Regex.RegexHelper.Match(pattern, draftPage);
+                MatchCollection matches = RegexHelper.Match(pattern, draftPage);
                 Match[] ma = new Match[matches.Count];
                 matches.CopyTo(ma, 0);
                 Parallel.ForEach(ma, new ParallelOptions { MaxDegreeOfParallelism = 20 }, matche =>
                 {
-                    string name = matche.Groups[1].Value;
+                    string name = HttpUtility.HtmlDecode(matche.Groups[1].Value);
                     Bitmap pic = PictureCache.GetPicture(name, matche.Groups[2].Value);
                     Card card = new Card { Name = name, Picture = pic };
                     OnPickedCardReceived(this, new CardEventArgs { Card = card });

@@ -6,7 +6,7 @@ using System.IO;
 using System.Text;
 using System.Drawing;
 
-namespace Draft.Http
+namespace Helpers.Http
 {
     public class HttpHelper
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using System.Drawing;
 
-namespace Draft.Pictures
+namespace Helpers.Pictures
 {
     public class PictureCache
     {

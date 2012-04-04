@@ -6,6 +6,8 @@ using System.Linq;
 using Draft.DraftSites.TappedOut;
 using System.Threading;
 using Draft.DraftSites.CCGDecks;
+using CardRatings;
+using Helpers.Diagnostics;
 
 namespace Draft
 {
@@ -14,25 +16,43 @@ namespace Draft
         private DeckEditorForm deckEditorForm;
         private IDraftSite draftSite;
         private string title;
+        Dictionary<string, CardRatingsItem> ratings = new Dictionary<string, CardRatingsItem>();
 
         public DraftListForm()
         {
             InitializeComponent();
         }
 
-        public static PictureBox CreatePictureBox(Card pickPicture)
-        {
-            PictureBox pictureBox = new PictureBox()
-            {
-                Image = pickPicture.Picture,
-                Height = Convert.ToInt32(pickPicture.Picture.Height * 0.8),
-                Width = Convert.ToInt32(pickPicture.Picture.Width * 0.8),
-                SizeMode = PictureBoxSizeMode.Zoom,
-                Tag = pickPicture,
-            };
+        //public static PictureBox CreatePictureBox(Card pickPicture)
+        //{
+        //    PictureBox pictureBox = new PictureBox()
+        //    {
+        //        Image = pickPicture.Picture,
+        //        Height = Convert.ToInt32(pickPicture.Picture.Height * 0.8),
+        //        Width = Convert.ToInt32(pickPicture.Picture.Width * 0.8),
+        //        SizeMode = PictureBoxSizeMode.Zoom,
+        //        Tag = pickPicture,
+        //    };
 
-            return pictureBox;
+        //    return pictureBox;
+        //}
+
+        public static CardUserControl CreateCardUserControl(Card pickPicture, CardRatingsItem ratings)
+        {
+            CardUserControl cardUserControl = new CardUserControl();
+            cardUserControl.Image = pickPicture.Picture;
+            cardUserControl.Tag = pickPicture;
+
+            if (ratings != null)
+            {
+                cardUserControl.Rating = ratings.Rating.ToString();
+                cardUserControl.SetToolTip(ratings.RatingDescription);
+            }
+
+            return cardUserControl;
         }
+
+
         private void FillCurrentPicks()
         {
             try
@@ -69,6 +89,15 @@ namespace Draft
         {
             Application.ThreadException += Application_ThreadException;
 
+            try
+            {
+                ratings = CardRatingsReader.Read("ratings");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(String.Format("Unable to read ratings - {0}{1}{2}", ex.Message, Environment.NewLine, ex.StackTrace), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+                        
             SiteSelectorForm siteSelectorForm = new SiteSelectorForm();
             if (siteSelectorForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 switch (siteSelectorForm.DraftSite)
@@ -89,7 +118,7 @@ namespace Draft
             draftSite.GetCurrentPicksStarted += draftSite_GetCurrentPicksStarted;
             draftSite.TimeLeftReceived += draftSite_TimeLeftReceived;
 
-            deckEditorForm = new DeckEditorForm(draftSite);
+            deckEditorForm = new DeckEditorForm(draftSite, ratings);
             deckEditorForm.Show();
 
             title = Text;
@@ -115,8 +144,8 @@ namespace Draft
         {
             try
             {
-                PictureBox pictureBox = (PictureBox)sender;
-                Card pickPicture = (Card)pictureBox.Tag;
+                CardUserControl cardUserControl = (CardUserControl)sender;
+                Card pickPicture = (Card)cardUserControl.Tag;
 
                 if (MessageBox.Show("Do you realy want to pick this picture?", "Pick?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
@@ -158,15 +187,29 @@ namespace Draft
                 MessageBox.Show(e.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }));
         }
+        public static CardRatingsItem GetCardRatingsItem(Dictionary<string, CardRatingsItem> ratings, Card c)
+        {
+            CardRatingsItem cardRatingsItem;
+            if (ratings.ContainsKey(c.Name))
+                cardRatingsItem = ratings[c.Name];
+            else
+            {
+                TH.Message(String.Format("Unable to find ratings for card {0}.", c.Name));
+                cardRatingsItem = null;
+            }
+
+            return cardRatingsItem;
+        }
+
         private void draftSite_CurrentPickReceived(object sender, CardEventArgs e)
         {
             Invoke(new Action(() =>
             {
-                PictureBox pictureBox = CreatePictureBox(e.Card);
+                CardUserControl cardUserControl = CreateCardUserControl(e.Card, GetCardRatingsItem(ratings, e.Card));
 
-                pictureBox.Click += draftPickPicture_Click;
+                cardUserControl.Click += draftPickPicture_Click;
 
-                draftPickPicturesPanel.Controls.Add(pictureBox);
+                draftPickPicturesPanel.Controls.Add(cardUserControl);
             }));
         }
         private void timer1_Tick(object sender, EventArgs e)

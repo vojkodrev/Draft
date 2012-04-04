@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Draft.DraftSites;
-using Draft.Http;
 using Draft.Decks;
 using System.Threading;
-using Draft.Pictures;
+using Helpers.Pictures;
+using CardRatings;
 
 namespace Draft
 {
@@ -18,30 +15,31 @@ namespace Draft
     {
         private Point coordinates;
         private readonly IDraftSite draftSite;
+        private readonly Dictionary<string, CardRatingsItem> ratings;
         private readonly string title;
 
-        public DeckEditorForm(IDraftSite draftSite)
+        public DeckEditorForm(IDraftSite draftSite, Dictionary<string, CardRatingsItem> ratings)
         {
+            InitializeComponent();
+
+            this.ratings = ratings;
             this.draftSite = draftSite;
             this.draftSite.GetPickedCardsError += draftSite_GetPickedCardsError;
             this.draftSite.GetPickedCardsFinished += draftSite_GetPickedCardsFinished;
             this.draftSite.GetPickedCardsStarted += draftSite_GetPickedCardsStarted;
             this.draftSite.PickedCardReceived += draftSite_PickedCardReceived;
 
-            InitializeComponent();
-
             title = Text;
         }
 
-        public void AddCard(Card pickPicture)
+        public void AddCard(Card picture)
         {
-            PictureBox pictureBox = DraftListForm.CreatePictureBox(pickPicture);
-            AddPictureBoxEvents(pictureBox);
+            CardUserControl cardUserControl = DraftListForm.CreateCardUserControl(picture, DraftListForm.GetCardRatingsItem(ratings, picture));
+            AddCardUserControlEvents(cardUserControl);
 
+            cardsPanel.Controls.Add(cardUserControl);
 
-            cardsPanel.Controls.Add(pictureBox);
-
-            pictureBox.BringToFront();
+            cardUserControl.BringToFront();
         }
         public void MassAdd(string name, int count)
         {
@@ -50,12 +48,12 @@ namespace Draft
                 AddCard(new Card { Picture = pic, Name = name });
         }
 
-        private void AddPictureBoxEvents(PictureBox pictureBox)
+        private void AddCardUserControlEvents(CardUserControl cardUserControl)
         {
-            pictureBox.Click += pictureBox_Click;
-            pictureBox.MouseDown += pictureBox_MouseDown;
-            pictureBox.MouseMove += pictureBox_MouseMove;
-            pictureBox.MouseUp += pictureBox_MouseUp;
+            cardUserControl.Click += movableControl_Click;
+            cardUserControl.MouseDown += movableControl_MouseDown;
+            cardUserControl.MouseMove += movableControl_MouseMove;
+            cardUserControl.MouseUp += movableControl_MouseUp;
         }
         private static Bitmap DownloadPicture(string cardName)
         {
@@ -68,8 +66,8 @@ namespace Draft
         {
             Text = String.Format("{0} - {1}", title, text);
         }
-        
-        private void pictureBox_MouseUp(object sender, MouseEventArgs e)
+
+        private void movableControl_MouseUp(object sender, MouseEventArgs e)
         {
             SetStatistics();
         }
@@ -83,12 +81,12 @@ namespace Draft
 
             Text = "Cards in deck: " + counter;
         }
-        private void pictureBox_MouseDown(object sender, MouseEventArgs e)
+        private void movableControl_MouseDown(object sender, MouseEventArgs e)
         {
             coordinates = new Point(-e.X, -e.Y);
             cardsPanel.Controls.SetChildIndex((Control)sender, 0);
         }
-        private void pictureBox_MouseMove(object sender, MouseEventArgs e)
+        private void movableControl_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -97,14 +95,14 @@ namespace Draft
                 ((Control)sender).Location = pointToClient;
             }
         }
-        private void pictureBox_Click(object sender, EventArgs e)
+        private void movableControl_Click(object sender, EventArgs e)
         {
             cardsPanel.Controls.SetChildIndex((Control)sender, 0);
         }
         private void DeckEditorForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
-        }        
+        }
         private void refreshPicksToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -147,7 +145,7 @@ namespace Draft
             {
                 MessageBox.Show(e.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }));
-        }        
+        }
         private void forestToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MassAdd("Forest", 5);

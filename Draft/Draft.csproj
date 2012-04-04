@@ -48,6 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CardUserControl.Designer.cs">
+      <DependentUpon>CardUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="DeckEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,23 +74,23 @@
     <Compile Include="DraftSites\Card.cs" />
     <Compile Include="DraftSites\TappedOut\TappedOutDraftSite.cs" />
     <Compile Include="DraftSites\TimeLeftEventArgs.cs" />
-    <Compile Include="Http\HttpHelper.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pictures\PictureCache.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Regex\RegexHelper.cs" />
     <Compile Include="SiteSelectorForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SiteSelectorForm.Designer.cs">
       <DependentUpon>SiteSelectorForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CardUserControl.resx">
+      <DependentUpon>CardUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DeckEditorForm.resx">
       <DependentUpon>DeckEditorForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -118,7 +124,16 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\CardRatings\CardRatings.csproj">
+      <Project>{28145420-68C0-4162-8D58-5B72E0DAF8AB}</Project>
+      <Name>CardRatings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{6C1C00AA-0DA3-4ED4-88EA-444B43D5AB48}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
