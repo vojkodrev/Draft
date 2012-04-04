@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfCardRatingsItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CardRatingsItem>
+    <CardName>Ambush Viper</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>Green has some nice pseudo-removal in this set; this handles any sort of large ground guy, is an instant to stop werewolves, and is even a 2-power guy for two. </RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Avacyn’s Pilgrim</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>Even if you aren’t GW, mana acceleration isn’t something you are gonna turn down very often. Much like in M12, if you open on this into a 3-drop, especially on the play, your opponent is in a pretty big hole. Plus, being able to flash back Travel Preparations or Unburial Rites in non-white decks is a significant bonus.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Boneyard Wurm</CardName>
+    <Rating>2.5</Rating>
+    <RatingDescription>Any deck with 14+ creatures and/or a graveyard theme will scoop these up, anticipating having a giant Boneyard every time one is drawn. That usually points to UG, which seems like a very viable archetype, but even creature-heavy G/x decks will utilize this well enough.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Bramblecrush</CardName>
+    <Rating>1</Rating>
+    <RatingDescription>It’s not the end of the world if you have to start this, but I’d really rather not. There are some decks with a bunch of equipment and enchantments, but most are pretty light, and maindecking this is just asking for trouble.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Caravan Vigil</CardName>
+    <Rating>2.5</Rating>
+    <RatingDescription>In a 2-color deck, this is marginal but playable. Where it really shines is in a 2-color deck with a splash, which usually comes in the form of some multi-color flashback card.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Creeping Renaissance</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>If you need some lategame, this delivers. Even just getting two creatures back isn’t horrible, and if you have this in your deck, you can usually maneuver a game to the point where it does much more than that. Cheap removal makes this better, but doesn’t cheap removal make everything better?</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Darkthicket Wolf</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>Wolfwalla here is one of the best 2-drops in the set, since it is basically unblockable until the midgame, at which point it trades up. It doesn’t even cost any mana early, since they just flat out can’t block it.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Daybreak Ranger/Nightfall Predator</CardName>
+    <Rating>4</Rating>
+    <RatingDescription>The flip cards all range from mediocre to slightly less mediocre, with a few key exceptions. This is one of them; it sends a good signal, threatens to take over any game it’s involved in, and is almost always going to be the windmill slam first pick.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Elder of Laurels</CardName>
+    <Rating>3.5</Rating>
+    <RatingDescription>Elder of Laurels in some respects casts Pacifism on all your opponent’s guys: while you have the mana up, they really can’t get into fights with your team. This is usually more applicable on offense, since leaving four up on their turn is pretty bad, but even being able to beat down with no fear and then cast a guy postcombat is pretty nice. Eventually you run out of things to play, and just starting whacking them with it.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Essence of the Wild</CardName>
+    <Rating>3.5</Rating>
+    <RatingDescription>If you can untap with this in play, things get pretty wild. It won’t solve all your problems, but a steady stream of 6/6’s should be enough to win you most games. Just watch out for Sever the Bloodline…</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Festerhide Boar</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>He’s pretty fat when he comes in as a 5/5; one could even call him morbidly obese. Even the small version is playable, and the big version is quite good. It takes a little work to reliably make him large, but Prey Upon and Blazing Torch are two good ways to make it happen without spending much mana.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Full Moon’s Rise</CardName>
+    <Rating>1</Rating>
+    <RatingDescription>It’s rare that you will find yourself with enough Werewolves that you actually want the full moon to rise, and even rarer that the regenerate ability will get you a two for one.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Garruk Relentless</CardName>
+    <Rating>4.5</Rating>
+    <RatingDescription>There aren’t very many ways to lose if you have a fast Garruk, since he even eats a flier when he comes into play. The wolves he makes will stop most ground assaults, which really means he is going to lose to either overwhelming ground forces (which usually beat you) or multiple fliers, in which case he still kills one and buys you a turn from the other. </RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Gatstaf Shepherd</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>I’ll play as many Howlers as I get, since they are just Grizzly Bears with a huge upside. I’m not saying that Grizzly Bears are fantastic, but they fill out the curve nicely, and being able to flip them lategame (or if the opponent misses a 2-drop) is pretty nice.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Gnaw to the Bone</CardName>
+    <Rating>1</Rating>
+    <RatingDescription>Here, on the other hand, it is much worse. Not as many decks are just focused on damage, and even the aggressive ones can win via card advantage if you have too many do-nothings like this.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Grave Bramble</CardName>
+    <Rating>2</Rating>
+    <RatingDescription>If you need a wall, it does the trick, and quite well at that. The protection from Zombies part is cute, though really only relevant if they have Makeshift Mauler or Skaab Goliath, plus some cases involving equipment. Still, you might as well add it in if you are playing what looks like a nighttime level, involving many zombies.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Grizzled Outcasts</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>They make a good top end of the curve, and even are reasonably likely to flip. The later the game gets, the higher the chance that you or your opponent just don’t have spells to play, at which point the 7/7 beast comes out to dominate the field. Plus, it isn’t like a 4G 4/4 is bad to begin with (though you don’t want a ton of them).</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Gutter Grime</CardName>
+    <Rating>3.5</Rating>
+    <RatingDescription>This card seems griminally underrated so far. It takes effect as soon as one guy dies, and once a few have bitten the dust, you are actually upgrading your creatures when they perish. It is almost impossible to win a long game against this card, and the first couple Oozes chump well enough to ensure that the game does indeed go long. It’s even splashable, which probably means it shouldn’t go very late at pretty much any point.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Hamlet Captain</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>I almost cut this guy from my last deck in favor of a Desperate Ravings. Yes, it was a brew. I ended up playing the Captain, and only then realized that I not only had a bunch of humans, but that he plays very well with Prey Upon, letting my other guys fight above their weight class. If you have 5+ humans, the Captain is very good, and even with less he’s still a bear.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Hollowhenve Scavenger</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>It isn’t too tough to gain the five most of the time, and if you don’t need to, it’s still a 4/5 brawler.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Kessig Cagebreakers</CardName>
+    <Rating>4</Rating>
+    <RatingDescription>I feel obligated to reference the Baja Boys here, so consider it done. A good Cagebreaking will end most games, and at the very least leave you up a few cards. Even if they can block and kill the ‘Breakers, you should trade for a guy and have some wolves for your troubles, and sometimes you will just sit there and wait until the attack is lethal.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Kindercatch</CardName>
+    <Rating>2</Rating>
+    <RatingDescription>The mana cost is actually prohibitive here. I’ve found that many decks want to splash sweet off-color cards, and having a triple colored card doesn’t play too well with that. If you are base green with no splash, it’s usually fine, though still not even all that special.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Lumberknot</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>It starts small, but after a few turns, it turns into a lumbering giant of sorts. It plays well with many of green’s themes, and is yet another card that is enabled very well by Prey Upon. It’s like that card is good or something.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Make a Wish</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>Divination for your graveyard is still fine, since it at least means you won’t draw lands off it (which by the time you cast this, is probably desirable). It is a good lategame card, though I don’t think I’d want to play more than one.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Mayor of Avabruck</CardName>
+    <Rating>4</Rating>
+    <RatingDescription>Not only does this flip insanely fast if they miss their two drop, every turn it stays flipped puts you farther and farther ahead. Green got some nice transform guys this set, and this is definitely one of them.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Moldgraf Monstrosity</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>It’s pretty hard for a 7-drop that is just a ground-pounder to be that great, though he is certainly fine. You get what you pay for, which is substantial, though don’t count on triggering his ability all that often. Usually the 8/8 is enough on its own, or just gets shut down by something like Bonds of Faith or Claustrophobia. </RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Moonmist</CardName>
+    <Rating>1.5</Rating>
+    <RatingDescription>Unlike Full Moon’s Rise, Moonmist leads to some pretty nice blowouts. At worst, it’s a Fog, which can come in handy, and at best it’s a Giant Growth ++, turning your guys into beasts permanently, all while protecting them in combat. If you have the Wolves, go for it.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Mulch</CardName>
+    <Rating>2.5</Rating>
+    <RatingDescription>Most base-green decks won’t have a ton of graveyard interaction, but it really only takes a few things to make this a playable. It does fish for land, and once you have 1-2 flashback cards plus a Boneyard Wurm, you should probably be Mulching.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Naturalize</CardName>
+    <Rating>1</Rating>
+    <RatingDescription>Though it’s slightly better than just a sideboard card, I wouldn’t want to start this.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Orchard Spirit</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>Treetop Rangers returns, and this time it’s got spirit! This gets in there just about every turn, and is a solid addition to any green deck, aggressive or not.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Parallel Lives</CardName>
+    <Rating>1</Rating>
+    <RatingDescription>You would have to have some serious token-making before this became an option, and I doubt I’ll see that at any point in the block.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Prey Upon</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>I think this is excellent design in both gameplay and flavor. This is what green’s removal should look like! It kills things efficiently and mostly reliably, but it does so in a manner that requires a little work on your part and makes a lot of sense from the whole color pie aspect (instead of taking a crap on it, which is what Dismember does). Prey Upon is also one of the best Morbid enablers in the set, and a card I want 2-3 of in all my green decks.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Ranger’s Guile</CardName>
+    <Rating>2.5</Rating>
+    <RatingDescription>Pump spells that also counter Terror are nice, and the uses on this cover a whole range of situations. It also only costs one mana, making it one of the go-to tricks in the set.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Somberwald Spider</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>The Spider slot is always a solid pick, though this one is actually not as good as we’ve come to expect. It does come in as a 4/6 some percentage of the time, but that percentage doesn’t seem huge, and past that it’s just a more expensive Giant Spider. You obviously still take it highly, but it isn’t all that special. It already costs enough that you don’t want to wait longer, which makes it that much less likely to be morbid.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Spider Spawning</CardName>
+    <Rating>2.5</Rating>
+    <RatingDescription>Spider Spawning does impose some constraints on your deck: you need to be able to cast and flash it back, and you want a fair amount of creatures plus a plan to get them into your graveyard. However, once you meet those terms, you get a pretty awesome spell. Making three Spiderlings is nice, and should buy you enough time to set up a flashback that nets you five or six. I really like this spell, and think it’s definitely worth splashing for. It might even spawn a new archetype all by itself!</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Spidery Grasp</CardName>
+    <Rating>2</Rating>
+    <RatingDescription>A trick is a trick, but paying three for it is a bit much. It does ambush things, though in a fairly dangerous way, and I don’t think I want too many in my deck.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Splinterfright</CardName>
+    <Rating>2.5</Rating>
+    <RatingDescription>Much like Curse of the Bloody Tome, the milling is nice until it isn’t. You can’t really stop it, and if this gets Claustrophobia’ed or Bonds of Faith’ed, good luck! It’s still not bad, but it definitely has some risk attached, and if you are creature-light, might not even be that threatening.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Travel Preparations</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>Turn two guy, turn three guy, turn four Travel Preparations plus flashback is just about unbeatable, and all that it asks is you play G/W. Honestly, that is a bit of a sacrifice, but between Travel Preparations, Bonds of Faith, and Prey Upon, it works out pretty well. This is one of the best reasons to play GW, and is even worth splashing if you can naturally cast half of it (preferably the green half).</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Tree of Redemption</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>Not only does this completely stop any ground guy (at least initially), you get a pretty nice life boost at some point. Bear in mind that it switches, not just resets you to 13 every turn, since that seems to be a common misconception.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Ulvenwald Mystics</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>I don’t mind paying Hill Giant prices for a Hill Giant +, and the flipped version of this really is hard to stop. </RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Villagers of Estwald</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>This is another solid curve-filler. I like the green werewolves way more than the red ones, since it feels like the small half is on par with the mana you are paying. At that point, flipping them is more of a bonus than a necessity, allowing you to be satisfied no matter what the outcome.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Woodland Sleuth</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>If you draft your deck to enable this, it does the job quite well. Getting something at random is a little annoying, but a free card is a free card, and you should be drafting Blazing Torch and Prey Upon high anyway.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Wreath of Geists</CardName>
+    <Rating>1.5</Rating>
+    <RatingDescription>The first time this got played on me, it was at instant speed. Yeah, that didn’t work out so well, and the card was immediately cut from my opponent’s deck. That’s about where I’d put it, too.</RatingDescription>
+  </CardRatingsItem>
+</ArrayOfCardRatingsItem>
