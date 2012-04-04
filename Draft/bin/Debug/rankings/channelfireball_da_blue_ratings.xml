@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfCardRatingsItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CardRatingsItem>
+    <CardName>Artful Dodge</CardName>
+    <Rating>1.5</Rating>
+    <RatingDescription>Despite the fact that this is going to end most games it’s cast in, it still is a pretty mediocre card. Really aggressive blue decks without evasion creatures want this, but you see a deck like that once in a blue moon. Don’t play this unless you have a good reason, but be aware that it can be really awesome when you do. Blue-green in particular is where I’d look, or the classic blue-red miser deck with Spectral Flight, Bloodcrazed Neonate, and the like.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Beguiler of Wills</CardName>
+    <Rating>4.5</Rating>
+    <RatingDescription>Yes, it’s a 1/1 for five with no built-in protection, and yes, it doesn’t do a whole lot on its own, but once you get to steal one creature, the floodgates burst open. Every creature you steal makes it progressively easier to steal more creatures, and even if they kill Beguiler after a few turns, the damage is done and the creatures stay stolen. I don’t believe this is passable, so just hope that you are the one to open it instead of your opponent.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Bone to Ash</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>I like me a 2 for 1, and this delivers without all that much work. Once they know about it, it obviously can be pretty clunky, but there are enough instants in the set that you can still use your mana effectively, and you will get plenty of people who just walk into this every time. </RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Call to the Kindred</CardName>
+    <Rating>1.5</Rating>
+    <RatingDescription>Sideboarding this in against removal-light opponents seems better than maindecking it, assuming your tribal count is around 7-9, since at 10+ I think I’d play this almost every time. That still means you will be leaving this one in the board the vast majority of times, and never picking it early. A repeatable source of card advantage is pretty nice, but I wish you didn’t have to jump through quite so many hoops to make it happen.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Chant of the Skifsang</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>If Sensory Deprivation is Swords to Plowshares, then I guess that makes this Vindicate. Yup, sounds like a perfect comparison to me. Mild exaggerations aside, this really does kill most things you want to kill, even giant ones, and it is actually one of the better removal spells blue has to offer.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Chill of Foreboding</CardName>
+    <Rating>2</Rating>
+    <RatingDescription>This is a fairly interesting card to evaluate, since it has a number of things going on. On the one side, it helps you mill yourself, which some decks desperately want. The downside is that you are often also going to be playing against decks like that, making this possibly help the opponent more than you. But wait, we aren’t done! It also is a win condition, since you can flash it back when you have less than five cards in deck, up to and including zero, passing the turn and hopefully decking them in the process. Part enabler, part win condition, and part risky move, I think deciding when to play this won’t be easy to figure out, and siding it out in the wrong matchups is definitely something you have to be aware of. My initial experience with it has been positive, as it helped me get my deck rolling and later was able to deliver the killing blow, but it definitely has a serious drawback.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Counterlash</CardName>
+    <Rating>1</Rating>
+    <RatingDescription>This is no Spelljack or Draining Whelk, since it requires that you have a sick creature to plop in, at which point you are better off just casting the creature to begin with. Six mana is too much for what are you ultimately getting, even in the best-case scenario.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Curse of Echoes</CardName>
+    <Rating>0.5</Rating>
+    <RatingDescription>Maindecking this is hugely optimistic, but it is a pretty sick sideboard option. Some decks are going to have a near-impossible time beating this, and it’s going to be pretty easy to identify them when you play against them.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Divination</CardName>
+    <Rating>2.5</Rating>
+    <RatingDescription>I’m always willing to trade a turn for a few extra cards, and later in the game, it doesn’t even demand that. Missing out on flasback shenanigans makes this quite a bit worse than Think Twice, but I still want one or two (or three or four) for all my blue decks.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Dungeon Geists</CardName>
+    <Rating>4</Rating>
+    <RatingDescription>I suppose I could be convinced to windmill slam a flying Fiend Hunter, if I were given the option. </RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Geralf’s Mindcrusher</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>I’ve not been overly impressed by this so far, despite it looking quite large and unkillable. It is just very slow, and the mill 5 isn’t usually fast enough to really kill them while being too late to really enable a self-mill deck. The card is fine, I just wouldn’t take it over good removal or a cheaper creature most of the time.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Griptide</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>Oh good, now you get to draw the same creature many more times in a row, seeing as how this is a common in a small set. It repels large things very effectively, and making it an instant actually goes a pretty long way towards making up for the lack of flashback (though it’s still obviously worse than Grasp).</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Havengul Runebinder</CardName>
+    <Rating>4</Rating>
+    <RatingDescription>On the other hand, this is way better than the Reaper in Limited, since it makes an army of ever-increasing Zombies, even if it only feeds out of your graveyard. If they don’t kill it, they better have a lot of fliers or they aren’t winning.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Headless Skaab</CardName>
+    <Rating>2.5</Rating>
+    <RatingDescription>Grrr. Argh. This fits into the Makeshift Mauler spot perfectly, that spot being the solid but unexciting Zombie that you have to play to get to 23 cards.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Increasing Confusion</CardName>
+    <Rating>3.5</Rating>
+    <RatingDescription>This may not affect the board in really any way, but it still kills them over the course of two turns. Cast it for 6-7, flash it back for 12-14, and they should be just about done. Winning the game is a pretty nice quality in a card, even if it does absolutely nothing to affect the board.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Mystic Retrieval</CardName>
+    <Rating>2</Rating>
+    <RatingDescription>I’m pretty happy when this is good in my deck, but that certainly isn’t every time. If you have good removal, preferably the kind without flashback, it is a solid way of gaining card advantage, and once you start casting Into the Maw of Hell multiple times, it gets pretty filthy.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Nephalia Seakite</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>Any Flametongue Kavus? Ok, maybe it isn’t quite Flametongue, or really even close, it still is a solid body that picks up a free card every now and then.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Niblis of the Breath</CardName>
+    <Rating>3.5</Rating>
+    <RatingDescription>An aggressive beater and a board-dominating tapper/untapper for just three mana is a pretty tight package. When you have this guy breathing down their neck, it’s pretty hard for them to make good attacks or blocks, and with a few other creatures out to threaten the untap half, it becomes just about impossible.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Relentless Skaabs</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>There’s nothing makeshift about this mauler; he isn’t all that hard to cast, slams for a lot, and is really difficult to kill. Even non-mill decks will want this guy, since him being a 5-drop means that you don’t need to go out of your way to put a creature in the bin, and you don’t lose value by having it happen a little bit later.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Saving Grasp</CardName>
+    <Rating>1.5</Rating>
+    <RatingDescription>I don’t think you are going to want to maindeck this without some good uses, Fiend Hunter easily being the best of all of them. In fact, just having a Fiend Hunter will make me play this every time in my UW decks, since it becomes actual Violent Ultimatum when they combine. Past that, it is a solid sideboard card against removal-heavy decks, which is where it’ll show up most.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Screeching Skaab</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>Walking Corpse just about always makes the cut in this format, and Screeching Skaab ranges from slightly better to significantly better. Even the non-mill decks have a few things that benefit from milling, and a deck that gains nothing from this is hard to find.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Secrets of the Dead</CardName>
+    <Rating>2</Rating>
+    <RatingDescription>It’s no secret that I love the flashback deck already, and this keeps the dream alive. Again, Burning Vengeance is better, but Secrets does show up more often (small set etc), so it gives you a decent incentive to go deep.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Shriekgeist</CardName>
+    <Rating>0.5</Rating>
+    <RatingDescription>Oh good, a two mana 1/1 flier with a drawback. Milling them for two is way more likely to help them than hurt them, so stay as far away from this thing as possible.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Soul Seizer</CardName>
+    <Rating>3.5</Rating>
+    <RatingDescription>This is the first Control Magic variant that I can remember that isn’t insane in Limited, which honestly isn’t a bad thing. It does require you hit them, and they have at least a turn to just kill it, so even though it’s a fine first pick, it isn’t better than a solid removal spell.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Stormbound Geist</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>An aggressive beater that keeps coming back for seconds, I’ve been pretty happy with this even in control decks. I’m always wary of things that can’t block, but the power level on this is high enough that I still like it. </RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Thought Scour</CardName>
+    <Rating>3</Rating>
+    <RatingDescription>The only time I’d ever cut this in a base-blue deck is when you get absolutely no benefit from a random mill two, which is otherwise known as “never”. It isn’t a premium enabler, but it provides value at no cost, something I usually don’t complain about. Usually.</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Tower Geist</CardName>
+    <Rating>3.5</Rating>
+    <RatingDescription>Graveyard deck or not, you want this guy in your blue deck. He provides just about the easiest 2 for 1 possible, and at a very low cost.</RatingDescription>
+  </CardRatingsItem>
+</ArrayOfCardRatingsItem>
