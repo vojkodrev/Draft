@@ -3,22 +3,27 @@
   <CardRatingsItem>
     <CardName>Briarpack Alpha</CardName>
     <Rating>3.5</Rating>
-    <RatingDescription>It really isn’t difficult to pick up a 2 for 1 with this, and you even have the option to just run it out for a bonus two damage if they aren’t biting. I think that Briarhorn is the Alpha to this pack’s Beta, but it’s close enough.</RatingDescription>
+    <RatingDescription>It really isn't difficult to pick up a 2 for 1 with this, and you even have the option to just run it out for a bonus two damage if they aren't biting. I think that Briarhorn is the Alpha to this pack's Beta, but it's close enough.</RatingDescription>
   </CardRatingsItem>
   <CardRatingsItem>
     <CardName>Clinging Mists</CardName>
     <Rating>0.5</Rating>
-    <RatingDescription>Barring some sort of mill/fog deck, which I can assure you isn’t good, this is really only useful in a racing matchup, and really only good when the stars align and you get to fateful hour it. </RatingDescription>
+    <RatingDescription>Barring some sort of mill/fog deck, which I can assure you isn't good, this is really only useful in a racing matchup, and really only good when the stars align and you get to fateful hour it. </RatingDescription>
   </CardRatingsItem>
   <CardRatingsItem>
     <CardName>Crushing Vines</CardName>
     <Rating>1.5</Rating>
-    <RatingDescription>Maindecking this isn’t too bad, since between artifacts and fliers, most decks have at least a couple targets. I’d still rather sideboard it, but it’s one of the best versions of this card I’ve seen in a while, and when I have one, I sideboard it in often. It’s also a must-play in sealed, since every deck you face is going to have multiple good targets.</RatingDescription>
+    <RatingDescription>Maindecking this isn't too bad, since between artifacts and fliers, most decks have at least a couple targets. I'd still rather sideboard it, but it's one of the best versions of this card I've seen in a while, and when I have one, I sideboard it in often. It's also a must-play in sealed, since every deck you face is going to have multiple good targets.</RatingDescription>
   </CardRatingsItem>
+  <CardRatingsItem>
+    <CardName>Scorned Villager</CardName>
+    <Rating>3</Rating>
+    <RatingDescription></RatingDescription>
+  </CardRatingsItem>  
   <CardRatingsItem>
     <CardName>Dawntreader Elk</CardName>
     <Rating>3</Rating>
-    <RatingDescription>Not a whole lot going on here, but as loathe as I am to admit, you won’t be turning down 2-drops in any of your good draft decks. It doesn’t really work as a mana fixer, but having the option is nice at the very least.</RatingDescription>
+    <RatingDescription>Not a whole lot going on here, but as loathe as I am to admit, you won't be turning down 2-drops in any of your good draft decks. It doesn't really work as a mana fixer, but having the option is nice at the very least.</RatingDescription>
   </CardRatingsItem>
   <CardRatingsItem>
     <CardName>Deranged Outcast</CardName>
@@ -28,7 +33,7 @@
   <CardRatingsItem>
     <CardName>Favor of the Woods</CardName>
     <Rating>0</Rating>
-    <RatingDescription>I’m baffled as to why you would ever willingly include this in a Limited deck.</RatingDescription>
+    <RatingDescription>I'm baffled as to why you would ever willingly include this in a Limited deck.</RatingDescription>
   </CardRatingsItem>
   <CardRatingsItem>
     <CardName>Feed the Pack</CardName>
@@ -36,14 +41,19 @@
     <RatingDescription>This format is very fast, but as six drops go, you could do worse. It is unfortunate that this requires a reasonable board in order to do anything at all, but the upside is there. It turns a random crappy guy into a couple wolves, and if you are lucky enough to have something sick like Fortress Crab, you just win the game. The pack is hungry, and will happily devour a Crab for much profit.</RatingDescription>
   </CardRatingsItem>
   <CardRatingsItem>
+    <CardName>Gravetiller Wurm</CardName>
+    <Rating>1.5</Rating>
+    <RatingDescription></RatingDescription>
+  </CardRatingsItem>  
+  <CardRatingsItem>
     <CardName>Ghoultree</CardName>
     <Rating>1.5</Rating>
-    <RatingDescription>Even fast decks want one or two six-drops, so if you aren’t fortunate enough to have a good one, there’s always the Gravetiller. If you are aggressive enough, it shouldn’t be too hard to make this an 8/8, and even as a 4/4 sometimes it does the trick. Kindercatch has some real competition in this set, not that you should have been playing it to begin with (I played Kindercatch today).</RatingDescription>
+    <RatingDescription>Even fast decks want one or two six-drops, so if you aren't fortunate enough to have a good one, there's always the Gravetiller. If you are aggressive enough, it shouldn't be too hard to make this an 8/8, and even as a 4/4 sometimes it does the trick. Kindercatch has some real competition in this set, not that you should have been playing it to begin with (I played Kindercatch today).</RatingDescription>
   </CardRatingsItem>
   <CardRatingsItem>
     <CardName>Grim Flowering</CardName>
     <Rating>1</Rating>
-    <RatingDescription>I’ve brewed with this card, with satisfying results. I would recommend against just jamming it in your maindeck, but in control mirrors it can be really sick. It isn’t actually good in the Spider Spawning deck, since once you mill yourself a bunch, the last thing you want to do is draw seven cards (and you probably deck yourself half the time if you do). I just like boarding it in for the really long game attrition matchups, where a six mana draw 5 is the perfect card.</RatingDescription>
+    <RatingDescription>I've brewed with this card, with satisfying results. I would recommend against just jamming it in your maindeck, but in control mirrors it can be really sick. It isn't actually good in the Spider Spawning deck, since once you mill yourself a bunch, the last thing you want to do is draw seven cards (and you probably deck yourself half the time if you do). I just like boarding it in for the really long game attrition matchups, where a six mana draw 5 is the perfect card.</RatingDescription>
   </CardRatingsItem>
   <CardRatingsItem>
     <CardName>Hollowhenge Beast</CardName>
@@ -53,7 +63,7 @@
   <CardRatingsItem>
     <CardName>Hunger of the Howlpack</CardName>
     <Rating>1.5</Rating>
-    <RatingDescription>Much like the 5-drop slot, you want 2-4 tricks in your green decks, and this fills the slot adequately enough. It isn’t as high-impact the turn you play it as something like Ranger’s Guile or Spidery Grasp, but it does offer a pretty sick bonus moving forward. </RatingDescription>
+    <RatingDescription>Much like the 5-drop slot, you want 2-4 tricks in your green decks, and this fills the slot adequately enough. It isn't as high-impact the turn you play it as something like Ranger's Guile or Spidery Grasp, but it does offer a pretty sick bonus moving forward. </RatingDescription>
   </CardRatingsItem>
   <CardRatingsItem>
     <CardName>Increasing Savagery</CardName>
@@ -63,12 +73,12 @@
   <CardRatingsItem>
     <CardName>Kessig Recluse</CardName>
     <Rating>3</Rating>
-    <RatingDescription>And the title of Giantest Spider goes to Kessig Recluse, the saddest excuse for a green first pick I’ve ever seen. I guess it’s only fair, considering how GW was the best draft deck prior to Dark Ascension, but green is definitely the worst color in the new set. That doesn’t make this Spider bad, just not nearly as aggressive as a card as green needs.</RatingDescription>
+    <RatingDescription>And the title of Giantest Spider goes to Kessig Recluse, the saddest excuse for a green first pick I've ever seen. I guess it's only fair, considering how GW was the best draft deck prior to Dark Ascension, but green is definitely the worst color in the new set. That doesn't make this Spider bad, just not nearly as aggressive as a card as green needs.</RatingDescription>
   </CardRatingsItem>
   <CardRatingsItem>
     <CardName>Lambholt Elder</CardName>
     <Rating>1</Rating>
-    <RatingDescription>I’ve been very unhappy with this, more than most Werewolves, since it does almost nothing on its small half. Only Ironfang is worse, and he at least has the decency to cost two mana. </RatingDescription>
+    <RatingDescription>I've been very unhappy with this, more than most Werewolves, since it does almost nothing on its small half. Only Ironfang is worse, and he at least has the decency to cost two mana. </RatingDescription>
   </CardRatingsItem>
   <CardRatingsItem>
     <CardName>Predator Ooze</CardName>
@@ -83,17 +93,17 @@
   <CardRatingsItem>
     <CardName>Strangleroot Geist</CardName>
     <Rating>3.5</Rating>
-    <RatingDescription>Who’d have geist that this would be good in Limited too? It’s worse than the good common removal spells, but a sight better than other green cards, and one of the reasons to start out the draft with Forests in mind.</RatingDescription>
+    <RatingDescription>Who'd have geist that this would be good in Limited too? It's worse than the good common removal spells, but a sight better than other green cards, and one of the reasons to start out the draft with Forests in mind.</RatingDescription>
   </CardRatingsItem>
   <CardRatingsItem>
-    <CardName>Tracker’s Instincts</CardName>
+    <CardName>Tracker's Instincts</CardName>
     <Rating>1.5</Rating>
-    <RatingDescription>If you have Forests and Islands in your deck, this is a fine spell and a playable card. However, the low rating reflects how often that will occur, which isn’t very. It’s a perfect fit for the now-defunct Spider Spawning deck, which is a shame. It turns out that trading a pack of the cards the deck NEEDS for a pack of cards that are kind of neat just isn’t a good deal. </RatingDescription>
+    <RatingDescription>If you have Forests and Islands in your deck, this is a fine spell and a playable card. However, the low rating reflects how often that will occur, which isn't very. It's a perfect fit for the now-defunct Spider Spawning deck, which is a shame. It turns out that trading a pack of the cards the deck NEEDS for a pack of cards that are kind of neat just isn't a good deal. </RatingDescription>
   </CardRatingsItem>
   <CardRatingsItem>
     <CardName>Ulvenwald Bear</CardName>
     <Rating>2.5</Rating>
-    <RatingDescription>It is worth noting that it can pump any creature with its morbid ability, which many seem to have missed, and past that it’s about as vanilla as it looks. </RatingDescription>
+    <RatingDescription>It is worth noting that it can pump any creature with its morbid ability, which many seem to have missed, and past that it's about as vanilla as it looks. </RatingDescription>
   </CardRatingsItem>
   <CardRatingsItem>
     <CardName>Village Survivors</CardName>
@@ -103,12 +113,12 @@
   <CardRatingsItem>
     <CardName>Vorapede</CardName>
     <Rating>3.5</Rating>
-    <RatingDescription>This is a vore man’s dragon, but a dragon it is. Unlike Predator Ooze, it really is worth stretching the mana for, and the combination of Trample and Vigilance makes it near-impossible to race (and Undying conveniently enough makes it impossible to kill).</RatingDescription>
+    <RatingDescription>This is a vore man's dragon, but a dragon it is. Unlike Predator Ooze, it really is worth stretching the mana for, and the combination of Trample and Vigilance makes it near-impossible to race (and Undying conveniently enough makes it impossible to kill).</RatingDescription>
   </CardRatingsItem>
   <CardRatingsItem>
     <CardName>Wild Hunger</CardName>
     <Rating>2.5</Rating>
-    <RatingDescription>This is a beating, and even worth splashing red for if you are G/x. Much like Moment of Heroism, it swings races in a ridiculous fashion, though obviously only on offense. Killing their guy and making them take an extra four damage is wild, and it even works just as a straight burn spell if necessary. It’s impossible to block an alpha strike when this is in play, and I’ve seen it end dozens of games.</RatingDescription>
+    <RatingDescription>This is a beating, and even worth splashing red for if you are G/x. Much like Moment of Heroism, it swings races in a ridiculous fashion, though obviously only on offense. Killing their guy and making them take an extra four damage is wild, and it even works just as a straight burn spell if necessary. It's impossible to block an alpha strike when this is in play, and I've seen it end dozens of games.</RatingDescription>
   </CardRatingsItem>
   <CardRatingsItem>
     <CardName>Wolfbitten Captive</CardName>
