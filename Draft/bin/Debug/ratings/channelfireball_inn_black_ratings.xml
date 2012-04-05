@@ -5,6 +5,12 @@
     <Rating>3.5</Rating>
     <RatingDescription>As gross as the picture is, the card might even be grosser in combat. It battles very well, especially with one of the many equipments in the set, and even rewards you for battling. Plus, he's a Zombie, which means that after they expend a bunch of cards and effort to get rid of him, you get to Ghoulraise him right up.</RatingDescription>
   </CardRatingsItem>
+  
+  <CardRatingsItem>
+    <CardName>Skeletal Grimace</CardName>
+    <Rating>1.0</Rating>
+    <RatingDescription>This isn’t the worst pair of pants I’ve ever seen, but I’m not usually looking to suit up my guys with random auras to begin with. If you’ve gotta run it, at least try and land it while they are tapped out (and don’t compare this to Trollhide, or you are just going to get annoyed).</RatingDescription>
+  </CardRatingsItem>  
   <CardRatingsItem>
     <CardName>Altar's Reap</CardName>
     <Rating>2</Rating>
@@ -146,7 +152,7 @@
     <RatingDescription>I'm not saying the Snake is awesome, but it combines well with both morbid and Ghoulraiser, since it almost always ends up in the graveyard within a turn of being cast. It's fine defensively, trading for many of the bigger guys, and does enough that I usually play it.</RatingDescription>
   </CardRatingsItem>
   <CardRatingsItem>
-    <CardName>Screeching Bat/Stalking Vampire</CardName>
+    <CardName>Screeching Bat</CardName>
     <Rating>3</Rating>
     <RatingDescription>Either side is basically fine, and more often than not this lives out its life as a Bat. If you have nothing to do, go ahead and flip it on turn five, but hopefully that isn't the case. I do find it funny that this Vampire can be a Victim of Night while unflipped, as has happened in my drafts already.</RatingDescription>
   </CardRatingsItem>
@@ -186,10 +192,17 @@
     <RatingDescription>Most of the multicolor flashback cards give you good incentives to be those colors, and Unburial Rites is the best of them all. You have to have some halfway decent creatures, but that's really all. It's definitely worth splashing, and U(b/w) seems to be a common color combination. </RatingDescription>
   </CardRatingsItem>
   <CardRatingsItem>
+    <CardName>Vampire Interloper</CardName>
+    <Rating>3.5</Rating>
+    <RatingDescription>Formats come and go, but beatdowns are eternal. The two-mana evasion guy that can’t block has been excellent every time, and I don’t expect this one to suck (except for maybe blood. Because he’s a Vampire).</RatingDescription>
+  </CardRatingsItem>
+  <CardRatingsItem>
     <CardName>Victim of Night</CardName>
     <Rating>3.5</Rating>
     <RatingDescription>On the high end of the 3.5's, Victim of Night has no shortage of victims, even against the most monstrous of monster decks. Oh, I'm also going to refer to the Vampire, Werewolf, Zombie combination as “monsters” from now on, here and in drafts, just for simplicity's sake. I haven't been disappointed yet, and even if this misses here and there, you can always find something to kill.</RatingDescription>
   </CardRatingsItem>
+
+
   <CardRatingsItem>
     <CardName>Village Cannibals</CardName>
     <Rating>2.5</Rating>

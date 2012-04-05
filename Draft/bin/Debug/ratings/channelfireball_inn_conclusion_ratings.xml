@@ -46,6 +46,12 @@
     <RatingDescription>This creates a pretty formidable barrier on the ground, even if it does die to Dead Weight. It even gets to bash, if need be!</RatingDescription>
   </CardRatingsItem>
   <CardRatingsItem>
+    <CardName>Shimmering Grotto</CardName>
+    <Rating>2</Rating>
+    <RatingDescription>If you are three colors, this is the card for you. If you aren’t, stay as far away as you can, since voluntarily getting your spells Sphere of Resistance’ed seems like a bad plan.</RatingDescription>
+  </CardRatingsItem>
+
+  <CardRatingsItem>
     <CardName>Demonmail Hauberk</CardName>
     <Rating>2</Rating>
     <RatingDescription>I've seen this card be a giant beatdown and a complete mulligan, mostly based on the decks it was played in. It goes very well in the W/x token deck, and is pretty much horrible in anything else. </RatingDescription>
