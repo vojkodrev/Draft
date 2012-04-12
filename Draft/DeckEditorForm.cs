@@ -8,6 +8,7 @@ using Draft.Decks;
 using System.Threading;
 using Helpers.Pictures;
 using CardRatings;
+using Helpers.Forms;
 
 namespace Draft
 {
@@ -47,7 +48,6 @@ namespace Draft
             for (int i = 0; i < count; i++)
                 AddCard(new Card { Picture = pic, Name = name });
         }
-
         private void AddCardUserControlEvents(CardUserControl cardUserControl)
         {
             cardUserControl.Click += movableControl_Click;
@@ -66,25 +66,80 @@ namespace Draft
         {
             Text = String.Format("{0} - {1}", title, text);
         }
+        private void SetStatistics()
+        {
+            Text = "Cards in deck: " + GetCardsInDeck().Count();
+        }
+        private static void NormalizePosition(Control c)
+        {
+            c.Left = c.Left - (c.Left % c.Width);
+        }
+        private int GetSplitLineY()
+        {
+            return Convert.ToInt32(cardsPanel.Height * 0.4);
+        }
+        private IEnumerable<Control> GetCardsNotInDeck()
+        {
+            return CardsPanelControlsToArray().Where(i => !CardInDeck(i));
+        }
+        private bool CardInDeck(Control i)
+        {
+            return i.Top > GetSplitLineY();
+        }
+        private Control[] CardsPanelControlsToArray()
+        {
+            Control[] controlsArray = new Control[cardsPanel.Controls.Count];
+            cardsPanel.Controls.CopyTo(controlsArray, 0);
+            return controlsArray;
+        }
+        private IEnumerable<Control> GetCardsInDeck()
+        {
+            return CardsPanelControlsToArray().Where(i => CardInDeck(i));
+        }
+        private static void OrderCards(IEnumerable<Control> controls, int top)
+        {
+            foreach (IGrouping<int, Control> grouping in controls.GroupBy(i => i.Left))
+            {
+                List<Control> groupingList = grouping.OrderBy(i => i.Top).ToList();
+                for (int i = 0; i < groupingList.Count; i++)
+                {
+                    Control control = groupingList[i];
+                    control.Top = top + i * 20;
+                    control.BringToFront();
+                }
+            }
+        }
 
         private void movableControl_MouseUp(object sender, MouseEventArgs e)
         {
-            SetStatistics();
-        }
-        private void SetStatistics()
-        {
-            Control.ControlCollection controls = cardsPanel.Controls;
-            int counter = 0;
-            foreach (Control control in controls)
-                if (control.Top > (Height / 2))
-                    counter++;
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                NormalizePosition((Control)sender);
 
-            Text = "Cards in deck: " + counter;
+                SetStatistics();
+            }
+        }
+        private void cardsPanel_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics graphics = cardsPanel.CreateGraphics();
+
+            graphics.Clear(BackColor);
+            int y = GetSplitLineY();
+            graphics.DrawLine(new Pen(Color.Black), new Point(0, y), new Point(cardsPanel.Width, y));
+        }
+        private void DeckEditorForm_Resize(object sender, EventArgs e)
+        {
+            cardsPanel_Paint(null, null);
         }
         private void movableControl_MouseDown(object sender, MouseEventArgs e)
         {
-            coordinates = new Point(-e.X, -e.Y);
-            cardsPanel.Controls.SetChildIndex((Control)sender, 0);
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                coordinates = new Point(-e.X, -e.Y);
+                cardsPanel.Controls.SetChildIndex((Control)sender, 0);
+            }
+            else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+                ((Control)sender).SendToBack();
         }
         private void movableControl_MouseMove(object sender, MouseEventArgs e)
         {
@@ -97,6 +152,7 @@ namespace Draft
         }
         private void movableControl_Click(object sender, EventArgs e)
         {
+
             cardsPanel.Controls.SetChildIndex((Control)sender, 0);
         }
         private void DeckEditorForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -113,7 +169,7 @@ namespace Draft
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FormsHelper.ShowExceptionInfo("Unable to get picked cards!", ex);
             }
         }
         private void draftSite_PickedCardReceived(object sender, CardEventArgs e)
@@ -148,41 +204,88 @@ namespace Draft
         }
         private void forestToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MassAdd("Forest", 5);
+            try
+            {
+                MassAdd("Forest", 5);
+            }
+            catch (Exception ex)
+            {
+                FormsHelper.ShowExceptionInfo("Unable to get forests!", ex);
+            }
         }
         private void plainsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MassAdd("Plains", 5);
+            try
+            {
+                MassAdd("Plains", 5);
+            }
+            catch (Exception ex)
+            {
+                FormsHelper.ShowExceptionInfo("Unable to get plains!", ex);
+            }
         }
         private void swampToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MassAdd("Swamp", 5);
+            try
+            {
+                MassAdd("Swamp", 5);
+            }
+            catch (Exception ex)
+            {
+                FormsHelper.ShowExceptionInfo("Unable to get swamps!", ex);
+            }
         }
         private void mountainToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MassAdd("Mountain", 5);
+            try
+            {
+                MassAdd("Mountain", 5);
+            }
+            catch (Exception ex)
+            {
+                FormsHelper.ShowExceptionInfo("Unable to get mountains!", ex);
+            }
         }
         private void islandToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MassAdd("Island", 5);
+            try
+            {
+                MassAdd("Island", 5);
+            }
+            catch (Exception ex)
+            {
+                FormsHelper.ShowExceptionInfo("Unable to get islands!", ex);    
+            }
         }
         private void saveDeckToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Control.ControlCollection controls = cardsPanel.Controls;
-            Deck deck = new Deck();
+            try
+            {
+                Deck deck = new Deck();
 
-            foreach (Control control in controls)
-                if (control.GetType() == typeof(PictureBox))
-                {
-                    Card pickPicture = (Card)((PictureBox)control).Tag;
+                deck.Cards.AddRange(GetCardsInDeck().Select(i => ((Card)i.Tag).Name));
+                deck.SideboardCards.AddRange(GetCardsNotInDeck().Select(i => ((Card)i.Tag).Name));
 
-                    if (control.Top > (Height / 2))
-                        deck.Cards.Add(pickPicture.Name);
-                    else
-                        deck.SideboardCards.Add(pickPicture.Name);
-                }
-
-            Clipboard.SetText(deck.Generate());
+                string deckText = deck.Generate();
+                if (!string.IsNullOrEmpty(deckText))
+                    Clipboard.SetText(deckText);
+            }
+            catch (Exception ex)
+            {
+                FormsHelper.ShowExceptionInfo("Unable to save deck!", ex);
+            }
         }
+        private void orderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OrderCards(GetCardsNotInDeck(), 15);
+                OrderCards(GetCardsInDeck(), GetSplitLineY() + 5);
+            }
+            catch (Exception ex)
+            {
+                FormsHelper.ShowExceptionInfo("Unable to order cards!", ex);
+            }
+        }       
     }
 }

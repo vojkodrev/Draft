@@ -8,6 +8,7 @@ using System.Threading;
 using Draft.DraftSites.CCGDecks;
 using CardRatings;
 using Helpers.Diagnostics;
+using Helpers.Forms;
 
 namespace Draft
 {
@@ -23,20 +24,6 @@ namespace Draft
             InitializeComponent();
         }
 
-        //public static PictureBox CreatePictureBox(Card pickPicture)
-        //{
-        //    PictureBox pictureBox = new PictureBox()
-        //    {
-        //        Image = pickPicture.Picture,
-        //        Height = Convert.ToInt32(pickPicture.Picture.Height * 0.8),
-        //        Width = Convert.ToInt32(pickPicture.Picture.Width * 0.8),
-        //        SizeMode = PictureBoxSizeMode.Zoom,
-        //        Tag = pickPicture,
-        //    };
-
-        //    return pictureBox;
-        //}
-
         public static CardUserControl CreateCardUserControl(Card pickPicture, CardRatingsItem ratings)
         {
             CardUserControl cardUserControl = new CardUserControl();
@@ -46,13 +33,11 @@ namespace Draft
             if (ratings != null)
             {
                 cardUserControl.Rating = ratings.Rating.ToString();
-                cardUserControl.SetToolTip(ratings.RatingDescription);
+                cardUserControl.SetToolTip(String.Format("{0} {1}", ratings.Rating, ratings.RatingDescription));
             }
 
             return cardUserControl;
         }
-
-
         private void FillCurrentPicks()
         {
             try
@@ -63,12 +48,25 @@ namespace Draft
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FormsHelper.ShowExceptionInfo("Unable to get current picks!", ex);
             }
         }
         private void ChangeText(string text)
         {
             Text = String.Format("{0} - {1}", title, text);
+        }
+        public static CardRatingsItem GetCardRatingsItem(Dictionary<string, CardRatingsItem> ratings, Card c)
+        {
+            CardRatingsItem cardRatingsItem;
+            if (ratings.ContainsKey(c.Name))
+                cardRatingsItem = ratings[c.Name];
+            else
+            {
+                TH.Warning(String.Format("Unable to find ratings for card {0}.", c.Name));
+                cardRatingsItem = null;
+            }
+
+            return cardRatingsItem;
         }
 
         private void draftSite_TimeLeftReceived(object sender, TimeLeftEventArgs e)
@@ -78,16 +76,9 @@ namespace Draft
                 timeLeft.Text = e.TimeLeft + "";
             }));
         }
-        private void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
-        {
-            Invoke(new Action(() =>
-            {
-                MessageBox.Show(e.Exception + Environment.NewLine + e.Exception.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }));
-        }
         private void DraftListForm_Load(object sender, EventArgs e)
         {
-            Application.ThreadException += Application_ThreadException;
+            Show();
 
             try
             {
@@ -95,11 +86,12 @@ namespace Draft
             }
             catch (Exception ex)
             {
-                MessageBox.Show(String.Format("Unable to read ratings - {0}{1}{2}", ex.Message, Environment.NewLine, ex.StackTrace), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FormsHelper.ShowExceptionInfo("Unable to read ratings!", ex);
             }
-                        
-            SiteSelectorForm siteSelectorForm = new SiteSelectorForm();
-            if (siteSelectorForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+
+            using (SiteSelectorForm siteSelectorForm = new SiteSelectorForm())
+            {
+                siteSelectorForm.ShowDialog();
                 switch (siteSelectorForm.DraftSite)
                 {
                     case SiteSelectorForm.SelectedSite.CCGDecks:
@@ -111,6 +103,7 @@ namespace Draft
                     default:
                         throw new NotSupportedException("Draft List - Unsupported draft site");
                 }
+            }
 
             draftSite.CurrentPickReceived += draftSite_CurrentPickReceived;
             draftSite.GetCurrentPicksError += draftSite_GetCurrentPicksError;
@@ -123,40 +116,22 @@ namespace Draft
 
             title = Text;
 
-            Show();
             loginToolStripMenuItem_Click(sender, e);
         }
         private void loginToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoginForm loginForm = new LoginForm();
-            if (loginForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                try
-                {
-                    draftSite.Login(loginForm.Username.Text, loginForm.Password.Text);
-                    FillCurrentPicks();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-        }
-        private void draftPickPicture_Click(object sender, EventArgs e)
-        {
             try
             {
-                CardUserControl cardUserControl = (CardUserControl)sender;
-                Card pickPicture = (Card)cardUserControl.Tag;
-
-                if (MessageBox.Show("Do you realy want to pick this picture?", "Pick?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-                {
-                    draftSite.PickCard(pickPicture.Id);
-                    deckEditorForm.AddCard(pickPicture);
-                    FillCurrentPicks();
-                }
+                using (LoginForm loginForm = new LoginForm())
+                    if (loginForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        draftSite.Login(loginForm.Username.Text, loginForm.Password.Text);
+                        FillCurrentPicks();
+                    }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FormsHelper.ShowExceptionInfo("Unable to login!", ex);
             }
         }
         private void refreshDraftToolStripMenuItem_Click(object sender, EventArgs e)
@@ -186,31 +161,44 @@ namespace Draft
             {
                 MessageBox.Show(e.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }));
-        }
-        public static CardRatingsItem GetCardRatingsItem(Dictionary<string, CardRatingsItem> ratings, Card c)
-        {
-            CardRatingsItem cardRatingsItem;
-            if (ratings.ContainsKey(c.Name))
-                cardRatingsItem = ratings[c.Name];
-            else
-            {
-                TH.Message(String.Format("Unable to find ratings for card {0}.", c.Name));
-                cardRatingsItem = null;
-            }
-
-            return cardRatingsItem;
-        }
-
+        }        
         private void draftSite_CurrentPickReceived(object sender, CardEventArgs e)
         {
             Invoke(new Action(() =>
             {
                 CardUserControl cardUserControl = CreateCardUserControl(e.Card, GetCardRatingsItem(ratings, e.Card));
 
-                cardUserControl.Click += draftPickPicture_Click;
+                cardUserControl.MouseUp += cardUserControl_MouseUp;
 
                 draftPickPicturesPanel.Controls.Add(cardUserControl);
             }));
+        }
+        void cardUserControl_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                Control control = (Control)sender;
+                control.Parent.Controls.SetChildIndex(control, 0);
+            }
+            else if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                try
+                {
+                    CardUserControl cardUserControl = (CardUserControl)sender;
+                    Card pickPicture = (Card)cardUserControl.Tag;
+
+                    if (MessageBox.Show("Do you realy want to pick this card?", "Pick?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        draftSite.PickCard(pickPicture.Id);
+                        deckEditorForm.AddCard(pickPicture);
+                        FillCurrentPicks();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    FormsHelper.ShowExceptionInfo("Unable to pick the card!", ex);
+                }
+            }
         }
         private void timer1_Tick(object sender, EventArgs e)
         {

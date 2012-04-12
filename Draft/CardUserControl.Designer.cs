@@ -58,7 +58,7 @@
             this.Controls.Add(this.picture);
             this.Name = "CardUserControl";
             this.Size = new System.Drawing.Size(249, 343);
-            this.Load += new System.EventHandler(this.CardUserControl_Load);
+            this.Load += new System.EventHandler(this.CardUserControl_Load);            
             ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
             this.ResumeLayout(false);
 

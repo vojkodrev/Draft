@@ -133,7 +133,7 @@ namespace Draft.DraftSites.TappedOut
                 Parallel.ForEach<Match>(ma, new ParallelOptions { MaxDegreeOfParallelism = 20 }, match =>
                 {
                     //System.Drawing.Bitmap dwnPic = Http.HttpHelper.DownloadPicture(match.Groups[2].Value);
-                    string name = HttpUtility.HtmlDecode(match.Groups[3].Value);
+                    string name = HttpUtility.HtmlDecode(match.Groups[3].Value).Trim();
                     var dwnPic = PictureCache.GetPicture(name, match.Groups[2].Value);
                     Card card = new Card { Id = match.Groups[1].Value, Name = name, Picture = dwnPic };
                     OnCurrentPickReceived(this, new CardEventArgs { Card = card });
@@ -169,7 +169,7 @@ namespace Draft.DraftSites.TappedOut
                 matches.CopyTo(ma, 0);
                 Parallel.ForEach(ma, new ParallelOptions { MaxDegreeOfParallelism = 20 }, matche =>
                 {
-                    string name = HttpUtility.HtmlDecode(matche.Groups[1].Value);
+                    string name = HttpUtility.HtmlDecode(matche.Groups[1].Value).Trim();
                     Bitmap pic = PictureCache.GetPicture(name, matche.Groups[2].Value);
                     Card card = new Card { Name = name, Picture = pic };
                     OnPickedCardReceived(this, new CardEventArgs { Card = card });

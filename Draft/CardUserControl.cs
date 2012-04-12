@@ -65,7 +65,7 @@ namespace Draft
                 control.Click += (cs, ce) => OnClick(ce);
                 control.MouseMove += (cs, ce) => OnMouseMove(ce);
                 control.MouseDown += (cs, ce) => OnMouseDown(ce);
-                control.MouseUp += (cs, ce) => OnMouseUp(ce);
+                control.MouseUp += (cs, ce) => OnMouseUp(ce);                
             }
         }
     }

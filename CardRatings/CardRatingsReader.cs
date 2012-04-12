@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using Helpers.Xml;
+using Helpers.Diagnostics;
 
 namespace CardRatings
 {
@@ -17,7 +18,14 @@ namespace CardRatings
             {
                 List<CardRatingsItem> fileContent = XmlHelper.FromFile<List<CardRatingsItem>>(file);
                 foreach (CardRatingsItem cardRatingsItem in fileContent)
-                    result.Add(cardRatingsItem.CardName, cardRatingsItem);
+                    try
+                    {
+                        result.Add(cardRatingsItem.CardName, cardRatingsItem);
+                    }
+                    catch (Exception)
+                    {
+                        TH.Warning("Ratings Reader: Card added twice: " + cardRatingsItem.CardName);
+                    }
             }
 
             return result;

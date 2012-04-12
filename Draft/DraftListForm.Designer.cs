@@ -79,9 +79,9 @@
             // 
             this.draftPickPicturesPanel.AutoScroll = true;
             this.draftPickPicturesPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.draftPickPicturesPanel.Location = new System.Drawing.Point(3, 24);
+            this.draftPickPicturesPanel.Location = new System.Drawing.Point(3, 23);
             this.draftPickPicturesPanel.Name = "draftPickPicturesPanel";
-            this.draftPickPicturesPanel.Size = new System.Drawing.Size(1054, 512);
+            this.draftPickPicturesPanel.Size = new System.Drawing.Size(1054, 513);
             this.draftPickPicturesPanel.TabIndex = 2;
             // 
             // timeLeft
@@ -95,15 +95,15 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.timeLeft, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.draftPickPicturesPanel, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 518F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1060, 539);
             this.tableLayoutPanel1.TabIndex = 3;
             // 

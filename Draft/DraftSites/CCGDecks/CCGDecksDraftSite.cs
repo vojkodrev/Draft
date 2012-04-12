@@ -138,7 +138,7 @@ namespace Draft.DraftSites.CCGDecks
                 {
                     string pictureUrl = match.Groups[2].Value;
                     string id = match.Groups[1].Value;
-                    string name = HttpUtility.HtmlDecode(match.Groups[3].Value);
+                    string name = HttpUtility.HtmlDecode(match.Groups[3].Value).Trim();
 
                     Bitmap picture = PictureCache.GetPicture(name, pictureUrl);
 
@@ -174,7 +174,7 @@ namespace Draft.DraftSites.CCGDecks
                 {
                     int numberOfPicks = Convert.ToInt32(match.Groups[1].Value);
                     string id = match.Groups[2].Value;
-                    string name = HttpUtility.HtmlDecode(match.Groups[3].Value);
+                    string name = HttpUtility.HtmlDecode(match.Groups[3].Value).Trim();
 
                     Bitmap picture;
 
