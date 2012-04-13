@@ -78,45 +78,53 @@ namespace Draft
         }
         private void DraftListForm_Load(object sender, EventArgs e)
         {
-            Show();
-
             try
             {
-                ratings = CardRatingsReader.Read("ratings");
+                Show();
+
+                try
+                {
+                    ratings = CardRatingsReader.Read("ratings");
+                }
+                catch (Exception ex)
+                {
+                    FormsHelper.ShowExceptionInfo("Unable to read ratings!", ex);
+                }
+
+                using (SiteSelectorForm siteSelectorForm = new SiteSelectorForm())
+                {
+                    siteSelectorForm.ShowDialog();
+                    switch (siteSelectorForm.DraftSite)
+                    {
+                        case SiteSelectorForm.SelectedSite.CCGDecks:
+                            draftSite = new CCGDecksDraftSite();
+                            break;
+                        case SiteSelectorForm.SelectedSite.Tappedout:
+                            draftSite = new TappedOutDraftSite();
+                            break;
+                        default:
+                            throw new NotSupportedException("Draft List - Unsupported draft site");
+                    }
+                }
+
+                draftSite.CurrentPickReceived += draftSite_CurrentPickReceived;
+                draftSite.GetCurrentPicksError += draftSite_GetCurrentPicksError;
+                draftSite.GetCurrentPicksFinished += draftSite_GetCurrentPicksFinished;
+                draftSite.GetCurrentPicksStarted += draftSite_GetCurrentPicksStarted;
+                draftSite.TimeLeftReceived += draftSite_TimeLeftReceived;
+
+                deckEditorForm = new DeckEditorForm(draftSite, ratings);
+                deckEditorForm.Show();
+
+                title = Text;
+
+                loginToolStripMenuItem_Click(sender, e);
             }
             catch (Exception ex)
             {
-                FormsHelper.ShowExceptionInfo("Unable to read ratings!", ex);
+                FormsHelper.ShowExceptionInfo("Exception in form load!", ex);
+                throw;
             }
-
-            using (SiteSelectorForm siteSelectorForm = new SiteSelectorForm())
-            {
-                siteSelectorForm.ShowDialog();
-                switch (siteSelectorForm.DraftSite)
-                {
-                    case SiteSelectorForm.SelectedSite.CCGDecks:
-                        draftSite = new CCGDecksDraftSite();
-                        break;
-                    case SiteSelectorForm.SelectedSite.Tappedout:
-                        draftSite = new TappedOutDraftSite();
-                        break;
-                    default:
-                        throw new NotSupportedException("Draft List - Unsupported draft site");
-                }
-            }
-
-            draftSite.CurrentPickReceived += draftSite_CurrentPickReceived;
-            draftSite.GetCurrentPicksError += draftSite_GetCurrentPicksError;
-            draftSite.GetCurrentPicksFinished += draftSite_GetCurrentPicksFinished;
-            draftSite.GetCurrentPicksStarted += draftSite_GetCurrentPicksStarted;
-            draftSite.TimeLeftReceived += draftSite_TimeLeftReceived;
-
-            deckEditorForm = new DeckEditorForm(draftSite, ratings);
-            deckEditorForm.Show();
-
-            title = Text;
-
-            loginToolStripMenuItem_Click(sender, e);
         }
         private void loginToolStripMenuItem_Click(object sender, EventArgs e)
         {

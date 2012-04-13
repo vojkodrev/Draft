@@ -78,6 +78,10 @@ namespace Draft
         {
             return Convert.ToInt32(cardsPanel.Height * 0.4);
         }
+        private int GetSplitLineY2()
+        {
+            return Convert.ToInt32(cardsPanel.Height * 0.8);
+        }
         private IEnumerable<Control> GetCardsNotInDeck()
         {
             return CardsPanelControlsToArray().Where(i => !CardInDeck(i));
@@ -104,7 +108,7 @@ namespace Draft
                 for (int i = 0; i < groupingList.Count; i++)
                 {
                     Control control = groupingList[i];
-                    control.Top = top + i * 20;
+                    control.Top = top + i * 25;
                     control.BringToFront();
                 }
             }
@@ -122,10 +126,13 @@ namespace Draft
         private void cardsPanel_Paint(object sender, PaintEventArgs e)
         {
             Graphics graphics = cardsPanel.CreateGraphics();
-
             graphics.Clear(BackColor);
+
             int y = GetSplitLineY();
             graphics.DrawLine(new Pen(Color.Black), new Point(0, y), new Point(cardsPanel.Width, y));
+
+            int y2 = GetSplitLineY2();
+            graphics.DrawLine(new Pen(Color.Black), new Point(0, y2), new Point(cardsPanel.Width, y2));
         }
         private void DeckEditorForm_Resize(object sender, EventArgs e)
         {
@@ -280,12 +287,17 @@ namespace Draft
             try
             {
                 OrderCards(GetCardsNotInDeck(), 15);
-                OrderCards(GetCardsInDeck(), GetSplitLineY() + 5);
+                OrderCards(GetCardsInDeck().Where(i => i.Top < GetSplitLineY2()), GetSplitLineY() + 5);
+                OrderCards(GetCardsInDeck().Where(i => i.Top >= GetSplitLineY2()), GetSplitLineY2() + 5);
             }
             catch (Exception ex)
             {
                 FormsHelper.ShowExceptionInfo("Unable to order cards!", ex);
             }
+        }
+        private void DeckEditorForm_Activated(object sender, EventArgs e)
+        {
+            cardsPanel_Paint(null, null);
         }       
     }
 }

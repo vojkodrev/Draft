@@ -9,6 +9,7 @@ using System.Drawing;
 using Helpers.Pictures;
 using Helpers.Regex;
 using System.Web;
+using Helpers.Diagnostics;
 
 namespace Draft.DraftSites.CCGDecks
 {
@@ -164,8 +165,10 @@ namespace Draft.DraftSites.CCGDecks
 
                 CheckIfInADraft(picksPage);
 
+                //string picksPage = System.IO.File.ReadAllText(@"d:\work casual\draft\picks.txt");
+
                 // 2 x <a href="javascript: viewCard('4428');" title="Ray of Revelation">Ray of Revelation</a> (1<img src="images/sm_white.gif">)<br>
-                string pattern = "(\\d*) x <a href=\"javascript: viewCard\\('(\\d*)'.*?title=.*?>(.*?)</a>.*?<img.*?>.*?<br>";
+                string pattern = "(\\d*) x <a href=\"javascript: viewCard\\('(\\d*)'.*?title=.*?>(.*?)</a>"; //.*?<img.*?>.*?<br>";
                 MatchCollection matches = RegexHelper.Match(pattern, picksPage.Replace("\n", " ").Replace("\r", " "));
                 Match[] ma = new Match[matches.Count];
                 matches.CopyTo(ma, 0);
@@ -187,7 +190,7 @@ namespace Draft.DraftSites.CCGDecks
                         string cardViewPagePattern = "<tr>.*?<td valign=\"top\">.*?<img src=\"(.*?)\">.*?</td>";
                         MatchCollection cardUrlMatch = RegexHelper.Match(cardViewPagePattern, cardViewPage.Replace("\n", " ").Replace("\r", " ").Replace("\t", " "));
                         picture = PictureCache.GetPicture(name, cardUrlMatch[0].Groups[1].Value);
-                    }
+                    }                    
 
                     for (int i = 0; i < numberOfPicks; i++)
                         OnPickedCardReceived(this, new CardEventArgs { Card = new Card { Id = id, Name = name, Picture = picture } });

@@ -21,11 +21,8 @@ namespace Draft.Decks
         {
             string result = "";
 
-            foreach (string card in Cards)
-                result += String.Format("1 {0}{1}", card, Environment.NewLine);
-
-            foreach (string card in SideboardCards)
-                result += String.Format("sb: 1 {0}{1}", card, Environment.NewLine);
+            Cards.GroupBy(i => i).ToList().ForEach(i => result += String.Format("{0} {1}{2}", i.Count(), i.Key, Environment.NewLine));
+            SideboardCards.GroupBy(i => i).ToList().ForEach(i => result += String.Format("sb: {0} {1}{2}", i.Count(), i.Key, Environment.NewLine));
 
             return result;
         }

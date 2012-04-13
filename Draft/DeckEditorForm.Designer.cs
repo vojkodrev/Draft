@@ -39,8 +39,8 @@
             this.islandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deckToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cardsPanel = new System.Windows.Forms.Panel();
             this.orderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cardsPanel = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -135,6 +135,14 @@
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveDeckToolStripMenuItem_Click);
             // 
+            // orderToolStripMenuItem
+            // 
+            this.orderToolStripMenuItem.Name = "orderToolStripMenuItem";
+            this.orderToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.orderToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.orderToolStripMenuItem.Text = "Order";
+            this.orderToolStripMenuItem.Click += new System.EventHandler(this.orderToolStripMenuItem_Click);
+            // 
             // cardsPanel
             // 
             this.cardsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -143,13 +151,6 @@
             this.cardsPanel.Size = new System.Drawing.Size(919, 504);
             this.cardsPanel.TabIndex = 2;
             this.cardsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.cardsPanel_Paint);
-            // 
-            // orderToolStripMenuItem
-            // 
-            this.orderToolStripMenuItem.Name = "orderToolStripMenuItem";
-            this.orderToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
-            this.orderToolStripMenuItem.Text = "Order";
-            this.orderToolStripMenuItem.Click += new System.EventHandler(this.orderToolStripMenuItem_Click);
             // 
             // DeckEditorForm
             // 
@@ -162,6 +163,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "DeckEditorForm";
             this.Text = "DeckEditor";
+            this.Activated += new System.EventHandler(this.DeckEditorForm_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DeckEditorForm_FormClosing);
             this.Resize += new System.EventHandler(this.DeckEditorForm_Resize);
             this.menuStrip1.ResumeLayout(false);
