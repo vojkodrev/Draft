@@ -41,6 +41,8 @@ namespace Draft
             cardsPanel.Controls.Add(cardUserControl);
 
             cardUserControl.BringToFront();
+
+            orderToolStripMenuItem_Click(null, null);
         }
         public void MassAdd(string name, int count)
         {
@@ -121,6 +123,8 @@ namespace Draft
                 NormalizePosition((Control)sender);
 
                 SetStatistics();
+
+                orderToolStripMenuItem_Click(null, null);
             }
         }
         private void cardsPanel_Paint(object sender, PaintEventArgs e)

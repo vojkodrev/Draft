@@ -13,5 +13,9 @@ namespace Helpers.Regex
             System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(pattern, RegexOptions.Multiline);
             return regex.Matches(input);
         }
+        public static string ReplaceWS(string s)
+        {
+            return s.Replace("\n", " ").Replace("\r", " ").Replace("\t", " ");
+        }
     }
 }

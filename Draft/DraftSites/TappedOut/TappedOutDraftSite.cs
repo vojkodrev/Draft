@@ -9,6 +9,7 @@ using System.Drawing;
 using Helpers.Http;
 using Helpers.Regex;
 using System.Web;
+using System.Threading;
 
 namespace Draft.DraftSites.TappedOut
 {
@@ -16,6 +17,8 @@ namespace Draft.DraftSites.TappedOut
     {
         private readonly CookieContainer cookieContainer = new CookieContainer();
         private string username = "";
+        private const int REFRESH_TIMEOUT = 2000;
+        private const int DOWNLOAD_THREAD_COUNT = 20;
 
         public event EventHandler<CardEventArgs> CurrentPickReceived;
         public event EventHandler GetCurrentPicksStarted;
@@ -103,41 +106,65 @@ namespace Draft.DraftSites.TappedOut
             string newVariable = HttpHelper.Get("http://tappedout.net" + id, cookieContainer);
         }
 
+        
+
         public void GetCurrentPicks()
         {
             OnGetCurrentPicksStarted(this, new EventArgs());
 
             try
             {
-                string draftPage = HttpHelper.Get("http://tappedout.net/mtg-draft-simulator/", cookieContainer);
+                bool first = true;
 
-                CheckIfInADraft(draftPage);
-
-                try
+                while (true)
                 {
-                    string countDownPattern = String.Format("<span style=\"text-decoration:none;\"><a href='/users/.*?/'>{0}</a></span>.*?<td class=\"player-countdown\">(.*?)</td>", username);
-                    MatchCollection timeLeftMatches = RegexHelper.Match(countDownPattern, draftPage.Replace("\n", " ").Replace("\r", " ").Replace("\t", " "));
-                    int timeLeft = Convert.ToInt32(timeLeftMatches[0].Groups[1].Value);
-                    OnTimeLeftReceived(this, new TimeLeftEventArgs { TimeLeft = timeLeft });
+                    if (!first)
+                        Thread.Sleep(REFRESH_TIMEOUT);
+
+                    first = false;
+
+                    string draftPage = HttpHelper.Get("http://tappedout.net/mtg-draft-simulator/", cookieContainer);
+
+                    if (DraftCompleted(draftPage))
+                    {
+                        OnGetCurrentPicksError(this, new ErrorEventArgs { Error = "Draft has completed!" });
+                        break;
+                    }
+
+                    if (!InADraft(draftPage))
+                        continue;
+
+                    try
+                    {
+                        string countDownPattern = String.Format("<span style=\"text-decoration:none;\"><a href='/users/.*?/'>{0}</a></span>.*?<td class=\"player-countdown\">(.*?)</td>", username);
+                        MatchCollection timeLeftMatches = RegexHelper.Match(countDownPattern, RegexHelper.ReplaceWS(draftPage));
+                        int timeLeft = Convert.ToInt32(timeLeftMatches[0].Groups[1].Value);
+                        OnTimeLeftReceived(this, new TimeLeftEventArgs { TimeLeft = timeLeft });
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
+
+                    string pattern = "<a target=\"_new\" class=\"card-hover pick\" href=\"(.*?)\">.*?<span class=\"image-box hide\"><img src=\"(.*?)\" alt=\"MTG Card: (.*?)\" /><br />";
+                    MatchCollection matches = RegexHelper.Match(pattern, draftPage);
+
+                    if (matches.Count == 0)
+                        continue;
+
+                    Match[] ma = new Match[matches.Count];
+                    matches.CopyTo(ma, 0);
+
+                    Parallel.ForEach<Match>(ma, new ParallelOptions { MaxDegreeOfParallelism = DOWNLOAD_THREAD_COUNT }, match =>
+                    {
+                        string name = HttpUtility.HtmlDecode(match.Groups[3].Value).Trim();
+                        var dwnPic = PictureCache.GetPicture(name, match.Groups[2].Value);
+                        Card card = new Card { Id = match.Groups[1].Value, Name = name, Picture = dwnPic };
+                        OnCurrentPickReceived(this, new CardEventArgs { Card = card });
+                    });
+
+                    break;
                 }
-                catch (Exception)
-                {
-                    OnGetCurrentPicksError(this, new ErrorEventArgs { Error = "Unable to get time left!" });
-                }
-
-                string pattern = "<a target=\"_new\" class=\"card-hover pick\" href=\"(.*?)\">.*?<span class=\"image-box hide\"><img src=\"(.*?)\" alt=\"MTG Card: (.*?)\" /><br />";
-                MatchCollection matches = RegexHelper.Match(pattern, draftPage);
-                Match[] ma = new Match[matches.Count];
-                matches.CopyTo(ma, 0);
-
-                Parallel.ForEach<Match>(ma, new ParallelOptions { MaxDegreeOfParallelism = 20 }, match =>
-                {
-                    //System.Drawing.Bitmap dwnPic = Http.HttpHelper.DownloadPicture(match.Groups[2].Value);
-                    string name = HttpUtility.HtmlDecode(match.Groups[3].Value).Trim();
-                    var dwnPic = PictureCache.GetPicture(name, match.Groups[2].Value);
-                    Card card = new Card { Id = match.Groups[1].Value, Name = name, Picture = dwnPic };
-                    OnCurrentPickReceived(this, new CardEventArgs { Card = card });
-                });
             }
             catch (Exception e)
             {
@@ -148,32 +175,62 @@ namespace Draft.DraftSites.TappedOut
                 OnGetCurrentPicksFinished(this, new EventArgs());
             }
         }
-        private static void CheckIfInADraft(string draftPage)
+        private static bool InADraft(string draftPage)
         {
-            if (!draftPage.Contains("Players will auto-pick after holding pack"))
-                throw new Exception("Not in draft!");
+            //if (!draftPage.Contains("Players will auto-pick after holding pack"))
+            //    throw new Exception("Not in draft!");
+
+            return draftPage.Contains("Players will auto-pick after holding pack");
         }
-        public void GetPickedCards()
+        private static bool DraftCompleted(string draftPage)
         {
+            return draftPage.Contains("Draft has completed");
+        }
+
+        public void GetPickedCards()
+        {           
             OnGetPickedCardsStarted(this, new EventArgs());
 
             try
             {
-                string draftPage = HttpHelper.Get("http://tappedout.net/mtg-draft-simulator/", cookieContainer);
+                bool first = true;
 
-                CheckIfInADraft(draftPage);
-
-                string pattern = "<input type=\"checkbox\" id=\"exclude-\\d*\" checked=\"checked\" class=\"exclude\" /> <span class=\".*?\"><a  class=\"card-hover\" href=\".*?\">(.*?)</a><span.*?<img class=\"screen\" src=\"(.*?)\" alt=\"MTG Card: .*?\" /></span>";
-                MatchCollection matches = RegexHelper.Match(pattern, draftPage);
-                Match[] ma = new Match[matches.Count];
-                matches.CopyTo(ma, 0);
-                Parallel.ForEach(ma, new ParallelOptions { MaxDegreeOfParallelism = 20 }, matche =>
+                while (true)
                 {
-                    string name = HttpUtility.HtmlDecode(matche.Groups[1].Value).Trim();
-                    Bitmap pic = PictureCache.GetPicture(name, matche.Groups[2].Value);
-                    Card card = new Card { Name = name, Picture = pic };
-                    OnPickedCardReceived(this, new CardEventArgs { Card = card });
-                });
+                    if (!first)
+                        Thread.Sleep(REFRESH_TIMEOUT);
+
+                    first = false;
+
+                    string draftPage = HttpHelper.Get("http://tappedout.net/mtg-draft-simulator/", cookieContainer);
+
+                    if (DraftCompleted(draftPage))
+                    {
+                        OnGetPickedCardsError(this, new ErrorEventArgs { Error = "Draft has completed!" });
+                        break;
+                    }
+
+                    if (!InADraft(draftPage))
+                        continue;
+
+                    string pattern = "<input type=\"checkbox\" id=\"exclude-\\d*\" checked=\"checked\" class=\"exclude\" /> <span class=\".*?\"><a  class=\"card-hover\" href=\".*?\">(.*?)</a><span.*?<img class=\"screen\" src=\"(.*?)\" alt=\"MTG Card: .*?\" /></span>";
+                    MatchCollection matches = RegexHelper.Match(pattern, draftPage);
+
+                    if (matches.Count == 0)
+                        continue;
+
+                    Match[] ma = new Match[matches.Count];
+                    matches.CopyTo(ma, 0);
+                    Parallel.ForEach(ma, new ParallelOptions { MaxDegreeOfParallelism = DOWNLOAD_THREAD_COUNT }, matche =>
+                    {
+                        string name = HttpUtility.HtmlDecode(matche.Groups[1].Value).Trim();
+                        Bitmap pic = PictureCache.GetPicture(name, matche.Groups[2].Value);
+                        Card card = new Card { Name = name, Picture = pic };
+                        OnPickedCardReceived(this, new CardEventArgs { Card = card });
+                    });
+
+                    break;
+                }
             }
             catch (Exception e)
             {

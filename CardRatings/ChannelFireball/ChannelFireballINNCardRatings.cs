@@ -24,7 +24,7 @@ namespace CardRatings.ChannelFireball
             string ratingsPageContent = HttpHelper.Get(ratingsSite, new CookieContainer());
 
             string pattern = "style='display:none;width:1px;height:1px;' /></p><p>(.*?)</p><p><b>Constructed</b>: \\d*?\\.\\d*?</p><p>.*?</p><p><b>Limited</b>: (\\d*?\\.\\d*?)</p><p>(.*?)</p>";
-            MatchCollection matches = RegexHelper.Match(pattern, ratingsPageContent.Replace("\n", "").Replace("\r", ""));
+            MatchCollection matches = RegexHelper.Match(pattern, RegexHelper.ReplaceWS(ratingsPageContent));
             Dictionary<string, CardRatingsItem> result = new Dictionary<string, CardRatingsItem>();
             foreach (Match match in matches)
             {
